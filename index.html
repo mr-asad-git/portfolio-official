@@ -1,4 +1,6 @@
-<html lang="en" class="scroll-smooth"><head>
+<html lang="en" class="scroll-smooth">
+
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Asad | Creative Full Stack Developer</title>
@@ -6,7 +8,7 @@
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600&display=swap');
-        
+
         :root {
             --cursor-size: 30px;
             --cursor-hover-size: 60px;
@@ -15,7 +17,8 @@
         body {
             font-family: 'Inter', sans-serif;
             background-color: #050505;
-            cursor: none; /* Hide default cursor */
+            cursor: none;
+            /* Hide default cursor */
             overflow-x: hidden;
             scroll-behavior: smooth;
         }
@@ -29,16 +32,16 @@
             height: var(--cursor-size);
             border-radius: 50%;
             background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.95), rgba(74, 222, 128, 0.4), rgba(34, 197, 94, 0.6));
-            box-shadow: 
-                0 0 20px rgba(74, 222, 128, 0.4), 
+            box-shadow:
+                0 0 20px rgba(74, 222, 128, 0.4),
                 inset 0 0 10px rgba(255, 255, 255, 0.8),
                 inset 2px 2px 5px rgba(255, 255, 255, 1);
             pointer-events: none;
             z-index: 9999;
             transform: translate(-50%, -50%);
-            transition: width 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), 
-                        height 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275),
-                        background-color 0.2s;
+            transition: width 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+                height 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+                background-color 0.2s;
             mix-blend-mode: exclusion;
         }
 
@@ -67,11 +70,21 @@
             animation: float-orb 20s infinite ease-in-out;
             opacity: 0.4;
         }
-        
+
         @keyframes float-orb {
-            0%, 100% { transform: translate(0, 0) scale(1); }
-            33% { transform: translate(30px, -50px) scale(1.1); }
-            66% { transform: translate(-20px, 20px) scale(0.9); }
+
+            0%,
+            100% {
+                transform: translate(0, 0) scale(1);
+            }
+
+            33% {
+                transform: translate(30px, -50px) scale(1.1);
+            }
+
+            66% {
+                transform: translate(-20px, 20px) scale(0.9);
+            }
         }
 
         /* Organic Morphing Shape */
@@ -81,11 +94,19 @@
             transition: all 1s ease-in-out;
             box-shadow: 0 0 40px rgba(74, 222, 128, 0.15);
         }
-        
+
         @keyframes morph {
-            0% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; }
-            50% { border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%; }
-            100% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; }
+            0% {
+                border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+            }
+
+            50% {
+                border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%;
+            }
+
+            100% {
+                border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+            }
         }
 
         /* Utilities */
@@ -94,7 +115,7 @@
             backdrop-filter: blur(16px);
             border: 1px solid rgba(255, 255, 255, 0.05);
         }
-        
+
         .glass:hover {
             background: rgba(255, 255, 255, 0.06);
             border-color: rgba(74, 222, 128, 0.2);
@@ -102,10 +123,19 @@
         }
 
         /* Scrollbar */
-        ::-webkit-scrollbar { width: 6px; }
-        ::-webkit-scrollbar-track { background: #050505; }
-        ::-webkit-scrollbar-thumb { background: #22c55e; border-radius: 10px; }
-        
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #050505;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #22c55e;
+            border-radius: 10px;
+        }
+
         /* Mobile Nav Transition */
         #mobile-menu {
             transition: max-height 0.3s ease-in-out, opacity 0.3s ease-in-out;
@@ -113,6 +143,7 @@
             opacity: 0;
             overflow: hidden;
         }
+
         #mobile-menu.open {
             max-height: 400px;
             opacity: 1;
@@ -122,8 +153,26 @@
         nav.menu-open {
             border-radius: 1rem;
         }
+
+        /* Floating Card Animation */
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0px);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        .animate-float {
+            animation: float 6s ease-in-out infinite;
+        }
     </style>
 </head>
+
 <body class="text-slate-300 antialiased selection:bg-green-500/30 selection:text-white relative">
 
     <!-- Custom Cursor -->
@@ -132,18 +181,22 @@
     <!-- Background 3D Ambience -->
     <div class="fixed inset-0 overflow-hidden pointer-events-none">
         <div class="orb w-[500px] h-[500px] bg-green-900/30 top-[-100px] left-[-100px]"></div>
-        <div class="orb w-[400px] h-[400px] bg-emerald-600/20 bottom-[10%] right-[-50px]" style="animation-delay: -5s;"></div>
+        <div class="orb w-[400px] h-[400px] bg-emerald-600/20 bottom-[10%] right-[-50px]" style="animation-delay: -5s;">
+        </div>
         <div class="orb w-[300px] h-[300px] bg-white/5 top-[40%] left-[30%]" style="animation-delay: -2s;"></div>
     </div>
 
     <!-- Sticky Futuristic Oval Header -->
     <div class="fixed top-6 left-0 right-0 z-50 flex justify-center px-4">
-        <nav class="glass rounded-full px-6 py-3 w-full max-w-5xl shadow-2xl shadow-black/50 transition-all duration-300">
+        <nav
+            class="glass rounded-full px-6 py-3 w-full max-w-5xl shadow-2xl shadow-black/50 transition-all duration-300">
             <div class="flex items-center justify-between">
                 <!-- Logo -->
-                <a href="#" class="cursor-target text-white text-base font-semibold tracking-tighter hover:text-green-400 transition-colors flex items-center gap-2">
+                <a href="#"
+                    class="cursor-target text-white text-base font-semibold tracking-tighter hover:text-green-400 transition-colors flex items-center gap-2">
                     <span class="relative flex h-2 w-2">
-                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                        <span
+                            class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
                         <span class="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
                     </span>
                     Asad Ullah
@@ -151,14 +204,19 @@
 
                 <!-- Desktop Menu -->
                 <div class="hidden md:flex items-center gap-8">
-                    <a href="#about" class="cursor-target text-xs font-medium text-slate-400 hover:text-white uppercase tracking-widest transition-colors">About</a>
-                    <a href="#skills" class="cursor-target text-xs font-medium text-slate-400 hover:text-white uppercase tracking-widest transition-colors">Skills</a>
-                    <a href="#experience" class="cursor-target text-xs font-medium text-slate-400 hover:text-white uppercase tracking-widest transition-colors">History</a>
-                    <a href="#projects" class="cursor-target text-xs font-medium text-slate-400 hover:text-white uppercase tracking-widest transition-colors">Projects</a>
+                    <a href="#about"
+                        class="cursor-target text-xs font-medium text-slate-400 hover:text-white uppercase tracking-widest transition-colors">About</a>
+                    <a href="#skills"
+                        class="cursor-target text-xs font-medium text-slate-400 hover:text-white uppercase tracking-widest transition-colors">Skills</a>
+                    <a href="#experience"
+                        class="cursor-target text-xs font-medium text-slate-400 hover:text-white uppercase tracking-widest transition-colors">History</a>
+                    <a href="#projects"
+                        class="cursor-target text-xs font-medium text-slate-400 hover:text-white uppercase tracking-widest transition-colors">Projects</a>
                 </div>
 
                 <!-- Contact Button (Desktop) -->
-                <a href="#contact" class="hidden md:flex cursor-target bg-white/5 hover:bg-green-500/20 hover:text-green-400 border border-white/10 text-xs font-medium px-5 py-2 rounded-full transition-all items-center gap-2 group">
+                <a href="#contact"
+                    class="hidden md:flex cursor-target bg-white/5 hover:bg-green-500/20 hover:text-green-400 border border-white/10 text-xs font-medium px-5 py-2 rounded-full transition-all items-center gap-2 group">
                     <span>Contact</span>
                     <i data-lucide="arrow-right" class="w-3 h-3 group-hover:translate-x-1 transition-transform"></i>
                 </a>
@@ -171,11 +229,17 @@
 
             <!-- Mobile Dropdown -->
             <div id="mobile-menu" class="md:hidden pt-2 pb-1 space-y-2 text-center border-t border-white/5 mt-2">
-                <a href="#about" class="cursor-target block text-xs font-medium text-slate-300 hover:text-green-400 uppercase tracking-widest py-1">About</a>
-                <a href="#skills" class="cursor-target block text-xs font-medium text-slate-300 hover:text-green-400 uppercase tracking-widest py-1">Skills</a>
-                <a href="#experience" class="cursor-target block text-xs font-medium text-slate-300 hover:text-green-400 uppercase tracking-widest py-1">History</a>
-                <a href="#projects" class="cursor-target block text-xs font-medium text-slate-300 hover:text-green-400 uppercase tracking-widest py-1">Projects</a>
-                <a href="#contact" class="cursor-target block text-xs font-medium text-green-400 uppercase tracking-widest py-1">Contact Me</a>
+                <a href="#about"
+                    class="cursor-target block text-xs font-medium text-slate-300 hover:text-green-400 uppercase tracking-widest py-1">About</a>
+                <a href="#skills"
+                    class="cursor-target block text-xs font-medium text-slate-300 hover:text-green-400 uppercase tracking-widest py-1">Skills</a>
+                <a href="#experience"
+                    class="cursor-target block text-xs font-medium text-slate-300 hover:text-green-400 uppercase tracking-widest py-1">History</a>
+                <a href="#projects"
+                    class="cursor-target block text-xs font-medium text-slate-300 hover:text-green-400 uppercase tracking-widest py-1">Projects</a>
+                <a href="#contact"
+                    class="cursor-target block text-xs font-medium text-green-400 uppercase tracking-widest py-1">Contact
+                    Me</a>
             </div>
         </nav>
     </div>
@@ -187,26 +251,33 @@
         <header id="about" class="min-h-[80vh] flex flex-col-reverse lg:flex-row items-center gap-12 lg:gap-20">
             <!-- Left: Intro Text -->
             <div class="flex-1 space-y-8 text-center lg:text-left relative">
-                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-green-500/20 bg-green-500/5 text-green-300 text-[10px] font-medium tracking-widest uppercase">
+                <div
+                    class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-green-500/20 bg-green-500/5 text-green-300 text-[10px] font-medium tracking-widest uppercase">
                     Available for Projects
                 </div>
 
                 <h1 class="text-5xl lg:text-7xl font-medium tracking-tight text-white leading-[1.1]">
                     Creative Full-stack <br>
-                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-white via-green-200 to-green-500">Developer.</span>
+                    <span
+                        class="text-transparent bg-clip-text bg-gradient-to-r from-white via-green-200 to-green-500">Developer.</span>
                 </h1>
 
                 <p class="text-slate-400 text-sm lg:text-base font-light leading-relaxed max-w-xl mx-auto lg:mx-0">
-                    I am <span class="text-white font-medium">Muhammad Asad Ullah</span>, a creative Full Stack Developer based in <span class="text-slate-200">Lahore, Pakistan</span>. I specialize in building futuristic, scalable digital solutions with modern technologies like Next.js, React, and Tailwind CSS.
+                    I am <span class="text-white font-medium">Muhammad Asad Ullah</span>, a creative Full Stack
+                    Developer based in <span class="text-slate-200">Lahore, Pakistan</span>. I specialize in building
+                    futuristic, scalable digital solutions with modern technologies like Next.js, React, and Tailwind
+                    CSS.
                 </p>
 
                 <!-- Social Links -->
                 <div class="flex flex-wrap items-center justify-center lg:justify-start gap-4 pt-2">
-                    <a href="https://github.com/mr-asad-git" target="_blank" class="cursor-target group flex items-center gap-2 px-6 py-3 bg-white/5 hover:bg-white/10 rounded-full border border-white/10 transition-all">
+                    <a href="https://github.com/mr-asad-git" target="_blank"
+                        class="cursor-target group flex items-center gap-2 px-6 py-3 bg-white/5 hover:bg-white/10 rounded-full border border-white/10 transition-all">
                         <i data-lucide="github" class="w-4 h-4 text-slate-300 group-hover:text-white"></i>
                         <span class="text-xs font-medium text-slate-300 group-hover:text-white">GITHUB</span>
                     </a>
-                    <a href="https://linkedin.com/in/mr-asad-link" target="_blank" class="cursor-target group flex items-center gap-2 px-6 py-3 bg-green-900/10 hover:bg-green-900/20 rounded-full border border-green-500/20 transition-all">
+                    <a href="https://linkedin.com/in/mr-asad-link" target="_blank"
+                        class="cursor-target group flex items-center gap-2 px-6 py-3 bg-green-900/10 hover:bg-green-900/20 rounded-full border border-green-500/20 transition-all">
                         <i data-lucide="linkedin" class="w-4 h-4 text-green-400"></i>
                         <span class="text-xs font-medium text-green-400">LINKEDIN</span>
                     </a>
@@ -214,9 +285,11 @@
 
                 <!-- Download Resume Button -->
                 <div class="pt-4 flex justify-center lg:justify-start">
-                    <a href="userdata/resume/Muhammad Asad Ullah.pdf" download class="cursor-target group flex items-center gap-2 px-4 py-2 bg-green-500/10 hover:bg-green-500/20 rounded-full border border-green-500/20 transition-all">
+                    <a href="userdata/resume/Muhammad Asad Ullah.pdf" download
+                        class="cursor-target group flex items-center gap-2 px-4 py-2 bg-green-500/10 hover:bg-green-500/20 rounded-full border border-green-500/20 transition-all">
                         <i data-lucide="download" class="w-4 h-4 text-green-400 group-hover:text-green-300"></i>
-                        <span class="text-xs font-medium text-green-400 group-hover:text-green-300">DOWNLOAD RESUME</span>
+                        <span class="text-xs font-medium text-green-400 group-hover:text-green-300">DOWNLOAD
+                            RESUME</span>
                     </a>
                 </div>
 
@@ -236,11 +309,15 @@
             <!-- Right: Image with Organic Shape -->
             <div class="flex-1 w-full max-w-md lg:max-w-lg relative group">
                 <div class="absolute inset-0 bg-green-500/20 blur-[80px] rounded-full animate-pulse"></div>
-                
+
                 <!-- Random Curved Shape Container -->
-                <div class="morph-shape overflow-hidden relative w-full aspect-square border border-white/10 bg-slate-900/50">
-                    <img src="/userdata/profile/profilepic.jpeg" alt="Asad" class="w-full h-full object-cover opacity-90 group-hover:scale-105 group-hover:opacity-100 transition-all duration-700">
-                    <div class="absolute inset-0 bg-gradient-to-t from-[#050505] via-transparent to-transparent opacity-60"></div>
+                <div
+                    class="morph-shape overflow-hidden relative w-full aspect-square border border-white/10 bg-slate-900/50">
+                    <img src="/userdata/profile/profilepic.jpeg" alt="Asad"
+                        class="w-full h-full object-cover opacity-90 group-hover:scale-105 group-hover:opacity-100 transition-all duration-700">
+                    <div
+                        class="absolute inset-0 bg-gradient-to-t from-[#050505] via-transparent to-transparent opacity-60">
+                    </div>
                 </div>
             </div>
         </header>
@@ -248,44 +325,140 @@
         <!-- Skills Section -->
         <section id="skills" class="space-y-10">
             <div class="flex items-end justify-between border-b border-white/5 pb-4">
-                <h2 class="text-3xl font-medium text-white tracking-tight">Technical <span class="text-green-400">Expertise</span></h2>
+                <h2 class="text-3xl font-medium text-white tracking-tight">Technical <span
+                        class="text-green-400">Expertise</span></h2>
             </div>
-            
-            <div class="glass rounded-3xl p-8 relative overflow-hidden">
-                <div class="absolute top-0 right-0 w-64 h-64 bg-green-500/5 blur-3xl rounded-full"></div>
-                
-                <div class="grid md:grid-cols-2 gap-10 relative z-10">
+
+            <div class="relative z-10">
+                <div class="grid md:grid-cols-2 gap-12">
                     <!-- Core Tech -->
-                    <div class="space-y-5">
-                        <h3 class="text-xs font-semibold text-slate-500 uppercase tracking-widest">Development Stack</h3>
-                        <div class="flex flex-wrap gap-2">
-                            <span class="px-4 py-2 rounded-lg bg-slate-900 border border-slate-800 text-xs font-medium text-slate-300 hover:border-green-500/50 hover:text-green-400 transition-colors cursor-target">ReactJS</span>
-                            <span class="px-4 py-2 rounded-lg bg-slate-900 border border-slate-800 text-xs font-medium text-slate-300 hover:border-green-500/50 hover:text-green-400 transition-colors cursor-target">Next JS</span>
-                            <span class="px-4 py-2 rounded-lg bg-slate-900 border border-slate-800 text-xs font-medium text-slate-300 hover:border-green-500/50 hover:text-green-400 transition-colors cursor-target">JavaScript</span>
-                            <span class="px-4 py-2 rounded-lg bg-slate-900 border border-slate-800 text-xs font-medium text-slate-300 hover:border-green-500/50 hover:text-green-400 transition-colors cursor-target">Tailwind CSS</span>
-                            <span class="px-4 py-2 rounded-lg bg-slate-900 border border-slate-800 text-xs font-medium text-slate-300 hover:border-green-500/50 hover:text-green-400 transition-colors cursor-target">HTML/CSS</span>
-                            <span class="px-4 py-2 rounded-lg bg-slate-900 border border-slate-800 text-xs font-medium text-slate-300 hover:border-green-500/50 hover:text-green-400 transition-colors cursor-target">React Native</span>
-                            <span class="px-4 py-2 rounded-lg bg-slate-900 border border-slate-800 text-xs font-medium text-slate-300 hover:border-green-500/50 hover:text-green-400 transition-colors cursor-target">C/C++</span>
-                            <span class="px-4 py-2 rounded-lg bg-slate-900 border border-slate-800 text-xs font-medium text-slate-300 hover:border-green-500/50 hover:text-green-400 transition-colors cursor-target">C#</span>
-                            <span class="px-4 py-2 rounded-lg bg-slate-900 border border-slate-800 text-xs font-medium text-slate-300 hover:border-green-500/50 hover:text-green-400 transition-colors cursor-target">Git/Apache</span>
-                            <span class="px-4 py-2 rounded-lg bg-slate-900 border border-slate-800 text-xs font-medium text-slate-300 hover:border-green-500/50 hover:text-green-400 transition-colors cursor-target">MySQL/MongoDB</span>
+                    <div class="space-y-6">
+                        <div class="flex items-center gap-3 mb-6">
+                            <div class="p-2 bg-green-500/10 rounded-lg text-green-400">
+                                <i data-lucide="code-2" class="w-5 h-5"></i>
+                            </div>
+                            <h3 class="text-sm font-semibold text-white uppercase tracking-widest">Development Stack
+                            </h3>
+                        </div>
+
+                        <div class="grid grid-cols-2 gap-4">
+                            <!-- Card 1 -->
+                            <div class="animate-float glass p-5 rounded-2xl group hover:bg-white/5 transition-all duration-500 hover:border-green-500/300 border border-white/5"
+                                style="animation-delay: 0s;">
+                                <div class="text-green-400 mb-3 opacity-60 group-hover:opacity-100 transition-opacity">
+                                    <i data-lucide="file-code" class="w-6 h-6"></i>
+                                </div>
+                                <h4 class="text-white font-medium">React & Next.js</h4>
+                                <p class="text-[10px] text-slate-500 mt-1 uppercase tracking-wider">Frontend Core</p>
+                            </div>
+
+                            <!-- Card 2 -->
+                            <div class="animate-float glass p-5 rounded-2xl group hover:bg-white/5 transition-all duration-500 hover:border-green-500/30 border border-white/5"
+                                style="animation-delay: 1s;">
+                                <div class="text-blue-400 mb-3 opacity-60 group-hover:opacity-100 transition-opacity">
+                                    <i data-lucide="braces" class="w-6 h-6"></i>
+                                </div>
+                                <h4 class="text-white font-medium">TypeScript</h4>
+                                <p class="text-[10px] text-slate-500 mt-1 uppercase tracking-wider">Type Safety</p>
+                            </div>
+
+                            <!-- Card 3 -->
+                            <div class="animate-float glass p-5 rounded-2xl group hover:bg-white/5 transition-all duration-500 hover:border-green-500/30 border border-white/5"
+                                style="animation-delay: 2s;">
+                                <div class="text-cyan-400 mb-3 opacity-60 group-hover:opacity-100 transition-opacity">
+                                    <i data-lucide="palette" class="w-6 h-6"></i>
+                                </div>
+                                <h4 class="text-white font-medium">Tailwind CSS</h4>
+                                <p class="text-[10px] text-slate-500 mt-1 uppercase tracking-wider">Styling</p>
+                            </div>
+
+                            <!-- Card 4 -->
+                            <div class="animate-float glass p-5 rounded-2xl group hover:bg-white/5 transition-all duration-500 hover:border-green-500/30 border border-white/5"
+                                style="animation-delay: 0.5s;">
+                                <div class="text-yellow-400 mb-3 opacity-60 group-hover:opacity-100 transition-opacity">
+                                    <i data-lucide="database" class="w-6 h-6"></i>
+                                </div>
+                                <h4 class="text-white font-medium">SQL / Mongo</h4>
+                                <p class="text-[10px] text-slate-500 mt-1 uppercase tracking-wider">Backend</p>
+                            </div>
+
+                            <!-- Card 5 -->
+                            <div class="animate-float glass p-5 rounded-2xl group hover:bg-white/5 transition-all duration-500 hover:border-green-500/30 border border-white/5"
+                                style="animation-delay: 1.5s;">
+                                <div class="text-purple-400 mb-3 opacity-60 group-hover:opacity-100 transition-opacity">
+                                    <i data-lucide="box" class="w-6 h-6"></i>
+                                </div>
+                                <h4 class="text-white font-medium">C++ / C#</h4>
+                                <p class="text-[10px] text-slate-500 mt-1 uppercase tracking-wider">System</p>
+                            </div>
+
+                            <!-- Card 6 -->
+                            <div class="animate-float glass p-5 rounded-2xl group hover:bg-white/5 transition-all duration-500 hover:border-green-500/30 border border-white/5"
+                                style="animation-delay: 2.5s;">
+                                <div class="text-orange-400 mb-3 opacity-60 group-hover:opacity-100 transition-opacity">
+                                    <i data-lucide="git-branch" class="w-6 h-6"></i>
+                                </div>
+                                <h4 class="text-white font-medium">Git & CI/CD</h4>
+                                <p class="text-[10px] text-slate-500 mt-1 uppercase tracking-wider">DevOps</p>
+                            </div>
                         </div>
                     </div>
 
-                    <!-- Soft Skills & Tools -->
-                    <div class="space-y-5">
-                        <h3 class="text-xs font-semibold text-slate-500 uppercase tracking-widest">Design &amp; Professional</h3>
-                        <div class="flex flex-wrap gap-2">
-                            <span class="px-4 py-2 rounded-lg bg-slate-900 border border-slate-800 text-xs font-medium text-slate-300 hover:border-white hover:text-white transition-colors cursor-target">Figma</span>
-                            <span class="px-4 py-2 rounded-lg bg-slate-900 border border-slate-800 text-xs font-medium text-slate-300 hover:border-white hover:text-white transition-colors cursor-target">UI Design</span>
-                            <span class="px-4 py-2 rounded-lg bg-slate-900 border border-slate-800 text-xs font-medium text-slate-300 hover:border-white hover:text-white transition-colors cursor-target">Team Management</span>
-                            <span class="px-4 py-2 rounded-lg bg-slate-900 border border-slate-800 text-xs font-medium text-slate-300 hover:border-white hover:text-white transition-colors cursor-target">Project Leadership</span>
-                            <span class="px-4 py-2 rounded-lg bg-slate-900 border border-slate-800 text-xs font-medium text-slate-300 hover:border-white hover:text-white transition-colors cursor-target">Problem Solving</span>
-                            <span class="px-4 py-2 rounded-lg bg-slate-900 border border-slate-800 text-xs font-medium text-slate-300 hover:border-white hover:text-white transition-colors cursor-target">MS Office</span>
+                    <!-- Soft Skills & Design -->
+                    <div class="space-y-6">
+                        <div class="flex items-center gap-3 mb-6">
+                            <div class="p-2 bg-purple-500/10 rounded-lg text-purple-400">
+                                <i data-lucide="sparkles" class="w-5 h-5"></i>
+                            </div>
+                            <h3 class="text-sm font-semibold text-white uppercase tracking-widest">Design & Leadership
+                            </h3>
                         </div>
+
+                        <div class="grid grid-cols-2 gap-4">
+                            <!-- Card 1 -->
+                            <div class="animate-float glass p-5 rounded-2xl group hover:bg-white/5 transition-all duration-500 hover:border-purple-500/30 border border-white/5"
+                                style="animation-delay: 1s;">
+                                <div class="text-pink-400 mb-3 opacity-60 group-hover:opacity-100 transition-opacity">
+                                    <i data-lucide="figma" class="w-6 h-6"></i>
+                                </div>
+                                <h4 class="text-white font-medium">Figma & UI</h4>
+                                <p class="text-[10px] text-slate-500 mt-1 uppercase tracking-wider">Design Tool</p>
+                            </div>
+
+                            <!-- Card 2 -->
+                            <div class="animate-float glass p-5 rounded-2xl group hover:bg-white/5 transition-all duration-500 hover:border-purple-500/30 border border-white/5"
+                                style="animation-delay: 2s;">
+                                <div class="text-purple-400 mb-3 opacity-60 group-hover:opacity-100 transition-opacity">
+                                    <i data-lucide="users" class="w-6 h-6"></i>
+                                </div>
+                                <h4 class="text-white font-medium">Leadership</h4>
+                                <p class="text-[10px] text-slate-500 mt-1 uppercase tracking-wider">Soft Skill</p>
+                            </div>
+
+                            <!-- Card 3 -->
+                            <div class="animate-float glass p-5 rounded-2xl group hover:bg-white/5 transition-all duration-500 hover:border-purple-500/30 border border-white/5"
+                                style="animation-delay: 0.2s;">
+                                <div class="text-indigo-400 mb-3 opacity-60 group-hover:opacity-100 transition-opacity">
+                                    <i data-lucide="lightbulb" class="w-6 h-6"></i>
+                                </div>
+                                <h4 class="text-white font-medium">Problem Solving</h4>
+                                <p class="text-[10px] text-slate-500 mt-1 uppercase tracking-wider">Analytical</p>
+                            </div>
+
+                            <!-- Card 4 -->
+                            <div class="animate-float glass p-5 rounded-2xl group hover:bg-white/5 transition-all duration-500 hover:border-purple-500/30 border border-white/5"
+                                style="animation-delay: 1.2s;">
+                                <div
+                                    class="text-emerald-400 mb-3 opacity-60 group-hover:opacity-100 transition-opacity">
+                                    <i data-lucide="message-square" class="w-6 h-6"></i>
+                                </div>
+                                <h4 class="text-white font-medium">Communication</h4>
+                                <p class="text-[10px] text-slate-500 mt-1 uppercase tracking-wider">Collaboration</p>
+                            </div>
                         </div>
                     </div>
                 </div>
+            </div>
             </div>
         </section>
 
@@ -296,19 +469,26 @@
                 <h2 class="text-2xl font-medium text-white tracking-tight flex items-center gap-3">
                     <i data-lucide="briefcase" class="text-green-400 w-5 h-5"></i> Employment History
                 </h2>
-                
+
                 <div class="relative pl-8 border-l border-white/10 space-y-8">
                     <div class="relative group">
-                        <span class="absolute -left-[37px] top-2 h-4 w-4 rounded-full bg-[#050505] border-2 border-green-500"></span>
-                        
+                        <span
+                            class="absolute -left-[37px] top-2 h-4 w-4 rounded-full bg-[#050505] border-2 border-green-500"></span>
+
                         <div class="glass p-6 rounded-2xl cursor-target transition-all hover:bg-white/5">
                             <div class="flex justify-between items-start mb-2">
                                 <h3 class="text-lg font-medium text-white">Gujrat IT Hub</h3>
-                                <span class="text-[10px] font-mono text-green-400 border border-green-500/20 px-2 py-1 rounded bg-green-500/5">Apr 2024 - Sept 2024</span>
+                                <span
+                                    class="text-[10px] font-mono text-green-400 border border-green-500/20 px-2 py-1 rounded bg-green-500/5">Apr
+                                    2024 - Sept 2024</span>
                             </div>
                             <p class="text-xs text-slate-500 uppercase tracking-wider mb-4">Software House, Gujrat</p>
                             <p class="text-sm text-slate-400 leading-relaxed font-light">
-                                Actively involved in the design and development of modern web applications using React, Next.js, and Tailwind CSS. Responsibilities included implementing responsive user interfaces, optimizing performance, and ensuring code quality through structured debugging. Collaborated with team members to translate client requirements into functional solutions.
+                                Actively involved in the design and development of modern web applications using React,
+                                Next.js, and Tailwind CSS. Responsibilities included implementing responsive user
+                                interfaces, optimizing performance, and ensuring code quality through structured
+                                debugging. Collaborated with team members to translate client requirements into
+                                functional solutions.
                             </p>
                         </div>
                     </div>
@@ -320,11 +500,12 @@
                 <h2 class="text-2xl font-medium text-white tracking-tight flex items-center gap-3">
                     <i data-lucide="graduation-cap" class="text-green-400 w-5 h-5"></i> Education
                 </h2>
-                
+
                 <div class="relative pl-8 border-l border-white/10 space-y-8">
                     <div class="relative group">
-                        <span class="absolute -left-[37px] top-2 h-4 w-4 rounded-full bg-[#050505] border-2 border-slate-500 group-hover:border-green-500 transition-colors"></span>
-                        
+                        <span
+                            class="absolute -left-[37px] top-2 h-4 w-4 rounded-full bg-[#050505] border-2 border-slate-500 group-hover:border-green-500 transition-colors"></span>
+
                         <div class="glass p-6 rounded-2xl cursor-target transition-all hover:bg-white/5">
                             <h3 class="text-lg font-medium text-white">Arid Agricultural University</h3>
                             <p class="text-xs text-slate-500 uppercase tracking-wider mb-2">District Gujrat</p>
@@ -337,8 +518,9 @@
                 </div>
                 <div class="relative pl-8 border-l border-white/10 space-y-8">
                     <div class="relative group">
-                        <span class="absolute -left-[37px] top-2 h-4 w-4 rounded-full bg-[#050505] border-2 border-slate-500 group-hover:border-green-500 transition-colors"></span>
-                        
+                        <span
+                            class="absolute -left-[37px] top-2 h-4 w-4 rounded-full bg-[#050505] border-2 border-slate-500 group-hover:border-green-500 transition-colors"></span>
+
                         <div class="glass p-6 rounded-2xl cursor-target transition-all hover:bg-white/5">
                             <h3 class="text-lg font-medium text-white">Punjab College</h3>
                             <p class="text-xs text-slate-500 uppercase tracking-wider mb-2">Kalra Khasa, Gujrat</p>
@@ -355,25 +537,36 @@
         <!-- Projects Section -->
         <section id="projects" class="space-y-10">
             <div class="flex items-end justify-between border-b border-white/5 pb-4">
-                <h2 class="text-3xl font-medium text-white tracking-tight">Featured <span class="text-green-400">Projects</span></h2>
+                <h2 class="text-3xl font-medium text-white tracking-tight">Featured <span
+                        class="text-green-400">Projects</span></h2>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                
+
                 <!-- Project 1 -->
                 <article class="glass p-1 rounded-2xl group cursor-target lg:col-span-2">
-                    <div class="bg-[#0c0c0c] h-full rounded-xl p-6 flex flex-col md:flex-row gap-6 relative overflow-hidden">
-                        <div class="absolute top-0 right-0 w-32 h-32 bg-green-500/10 blur-2xl rounded-full group-hover:bg-green-500/20 transition-all"></div>
+                    <div
+                        class="bg-[#0c0c0c] h-full rounded-xl p-6 flex flex-col md:flex-row gap-6 relative overflow-hidden">
+                        <div
+                            class="absolute top-0 right-0 w-32 h-32 bg-green-500/10 blur-2xl rounded-full group-hover:bg-green-500/20 transition-all">
+                        </div>
                         <div class="flex-1 space-y-4">
                             <div class="flex justify-between items-start">
                                 <div>
-                                    <h3 class="text-xl font-medium text-white group-hover:text-green-400 transition-colors">Threat Eagle</h3>
-                                    <span class="text-[10px] text-green-500 font-bold uppercase tracking-wider">Cybersecurity Platform</span>
+                                    <h3
+                                        class="text-xl font-medium text-white group-hover:text-green-400 transition-colors">
+                                        Threat Eagle</h3>
+                                    <span
+                                        class="text-[10px] text-green-500 font-bold uppercase tracking-wider">Cybersecurity
+                                        Platform</span>
                                 </div>
-                                <span class="text-[10px] text-slate-500 border border-slate-800 px-2 py-1 rounded">May 2025 - December 2025</span>
+                                <span class="text-[10px] text-slate-500 border border-slate-800 px-2 py-1 rounded">May
+                                    2025 - December 2025</span>
                             </div>
                             <p class="text-sm text-slate-400 font-light leading-relaxed">
-                                A platform designed to identify, analyze, and resolve threats across codebases. Features secure authentication, scalable management dashboards, and real-time vulnerability detection using Next.js and React.
+                                A platform designed to identify, analyze, and resolve threats across codebases. Features
+                                secure authentication, scalable management dashboards, and real-time vulnerability
+                                detection using Next.js and React.
                             </p>
                             <div class="flex flex-wrap gap-2 pt-2">
                                 <span class="text-[10px] text-slate-300 bg-white/5 px-2 py-1 rounded">Next.js</span>
@@ -381,7 +574,8 @@
                                 <span class="text-[10px] text-slate-300 bg-white/5 px-2 py-1 rounded">Security</span>
                             </div>
                             <div class="pt-2">
-                                <a href="https://threat-eagle.vercel.app/" target="_blank" class="inline-flex items-center gap-2 text-xs font-medium text-white hover:text-green-400 transition-colors">
+                                <a href="https://threat-eagle.vercel.app/" target="_blank"
+                                    class="inline-flex items-center gap-2 text-xs font-medium text-white hover:text-green-400 transition-colors">
                                     View Live <i data-lucide="external-link" class="w-3 h-3"></i>
                                 </a>
                             </div>
@@ -395,12 +589,16 @@
                         <div class="flex justify-between items-start mb-4">
                             <div>
                                 <h3 class="text-lg font-medium text-white">E-Commerce Site</h3>
-                                <span class="text-[10px] text-blue-400 font-bold uppercase tracking-wider">Web Development</span>
+                                <span class="text-[10px] text-blue-400 font-bold uppercase tracking-wider">Web
+                                    Development</span>
                             </div>
-                            <a href="https://mr-asad-git.github.io/proLand.github.io/home.html" target="_blank" class="text-slate-400 hover:text-white"><i data-lucide="arrow-up-right" class="w-4 h-4"></i></a>
+                            <a href="https://mr-asad-git.github.io/proLand.github.io/home.html" target="_blank"
+                                class="text-slate-400 hover:text-white"><i data-lucide="arrow-up-right"
+                                    class="w-4 h-4"></i></a>
                         </div>
                         <p class="text-sm text-slate-400 font-light mb-4 flex-grow">
-                            Fully functional store with product listings, dynamic cart, and secure checkout flow using HTML/CSS/JS.
+                            Fully functional store with product listings, dynamic cart, and secure checkout flow using
+                            HTML/CSS/JS.
                         </p>
                         <div class="text-[10px] text-slate-500 pt-4 border-t border-white/5">Sep 2024 - Oct 2024</div>
                     </div>
@@ -412,9 +610,12 @@
                         <div class="flex justify-between items-start mb-4">
                             <div>
                                 <h3 class="text-lg font-medium text-white">Daraz Clone</h3>
-                                <span class="text-[10px] text-orange-400 font-bold uppercase tracking-wider">Frontend Replica</span>
+                                <span class="text-[10px] text-orange-400 font-bold uppercase tracking-wider">Frontend
+                                    Replica</span>
                             </div>
-                            <a href="https://mr-asad-git.github.io/daraz_clone/" target="_blank" class="text-slate-400 hover:text-white"><i data-lucide="arrow-up-right" class="w-4 h-4"></i></a>
+                            <a href="https://mr-asad-git.github.io/daraz_clone/" target="_blank"
+                                class="text-slate-400 hover:text-white"><i data-lucide="arrow-up-right"
+                                    class="w-4 h-4"></i></a>
                         </div>
                         <p class="text-sm text-slate-400 font-light mb-4 flex-grow">
                             Pixel-perfect clone focusing on core structure, responsive layouts, and reusable components.
@@ -429,12 +630,14 @@
                         <div class="flex justify-between items-start mb-4">
                             <div>
                                 <h3 class="text-lg font-medium text-white">Dish Detective</h3>
-                                <span class="text-[10px] text-pink-400 font-bold uppercase tracking-wider">UI/UX Figma</span>
+                                <span class="text-[10px] text-pink-400 font-bold uppercase tracking-wider">UI/UX
+                                    Figma</span>
                             </div>
                             <i data-lucide="figma" class="w-4 h-4 text-pink-500"></i>
                         </div>
                         <p class="text-sm text-slate-400 font-light mb-4 flex-grow">
-                            Concept app to discover dishes based on ingredients and mood. Focused on visual hierarchy and user flow.
+                            Concept app to discover dishes based on ingredients and mood. Focused on visual hierarchy
+                            and user flow.
                         </p>
                         <div class="text-[10px] text-slate-500 pt-4 border-t border-white/5">Jun 2025 - July 2025</div>
                     </div>
@@ -446,12 +649,14 @@
                         <div class="flex justify-between items-start mb-4">
                             <div>
                                 <h3 class="text-lg font-medium text-white">Kiosk Movie App</h3>
-                                <span class="text-[10px] text-purple-400 font-bold uppercase tracking-wider">UI/UX Figma</span>
+                                <span class="text-[10px] text-purple-400 font-bold uppercase tracking-wider">UI/UX
+                                    Figma</span>
                             </div>
                             <i data-lucide="figma" class="w-4 h-4 text-purple-500"></i>
                         </div>
                         <p class="text-sm text-slate-400 font-light mb-4 flex-grow">
-                            Movie browsing interface for large screens/kiosks. Organized categories for simple discovery.
+                            Movie browsing interface for large screens/kiosks. Organized categories for simple
+                            discovery.
                         </p>
                         <div class="text-[10px] text-slate-500 pt-4 border-t border-white/5">Dec 2025</div>
                     </div>
@@ -462,32 +667,142 @@
 
     </main>
 
+
+    <!-- Contact Section -->
+    <section id="contact" class="relative z-10 pt-32 pb-20">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="flex items-end justify-between border-b border-white/5 pb-4 mb-12">
+                <h2 class="text-3xl font-medium text-white tracking-tight">Get in <span
+                        class="text-green-400">Touch</span></h2>
+            </div>
+
+            <div class="grid lg:grid-cols-12 gap-12 items-center">
+                <!-- Contact Info / Text -->
+                <div class="lg:col-span-4 space-y-8">
+                    <h3 class="text-2xl lg:text-3xl font-medium text-white leading-tight">
+                        Let's build something <br>
+                        <span class="text-slate-500">extraordinary together.</span>
+                    </h3>
+                    <p class="text-slate-400 font-light leading-relaxed max-w-md">
+                        Whether you have a question, a project proposal, or just want to say hi, I'll try my best to get
+                        back to you!
+                    </p>
+
+                    <div class="space-y-4 pt-4">
+                        <div class="flex items-center gap-4 text-slate-300">
+                            <div class="p-3 bg-white/5 rounded-full text-green-400 border border-white/10">
+                                <i data-lucide="mail" class="w-5 h-5"></i>
+                            </div>
+                            <div>
+                                <div class="text-xs text-slate-500 uppercase tracking-wider">Email</div>
+                                <div class="text-sm font-medium">buttasad569@gmail.com</div>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-4 text-slate-300">
+                            <div class="p-3 bg-white/5 rounded-full text-green-400 border border-white/10">
+                                <i data-lucide="phone" class="w-5 h-5"></i>
+                            </div>
+                            <div>
+                                <div class="text-xs text-slate-500 uppercase tracking-wider">Phone</div>
+                                <div class="text-sm font-medium">+92 322 926 9129</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Contact Form -->
+                <form id="contactForm" class="lg:col-span-8 glass p-8 rounded-3xl space-y-6 relative overflow-hidden">
+                    <div
+                        class="absolute top-0 right-0 w-32 h-32 bg-green-500/10 blur-2xl rounded-full pointer-events-none">
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 relative z-10">
+                        <div class="space-y-2">
+                            <label for="name"
+                                class="text-xs font-semibold text-slate-500 uppercase tracking-widest pl-1">Name</label>
+                            <input type="text" id="name" required
+                                class="w-full bg-[#0c0c0c] border border-white/10 rounded-xl px-4 py-5 text-white text-sm focus:outline-none focus:border-green-500/50 focus:bg-white/5 transition-all placeholder:text-slate-700"
+                                placeholder="Your Name">
+                        </div>
+                        <div class="space-y-2">
+                            <label for="email"
+                                class="text-xs font-semibold text-slate-500 uppercase tracking-widest pl-1">Email</label>
+                            <input type="email" id="email" required
+                                class="w-full bg-[#0c0c0c] border border-white/10 rounded-xl px-4 py-5 text-white text-sm focus:outline-none focus:border-green-500/50 focus:bg-white/5 transition-all placeholder:text-slate-700"
+                                placeholder="your@email.com">
+                        </div>
+                    </div>
+
+                    <div class="space-y-2 relative z-10">
+                        <label for="message"
+                            class="text-xs font-semibold text-slate-500 uppercase tracking-widest pl-1">Message</label>
+                        <textarea id="message" required rows="8"
+                            class="w-full bg-[#0c0c0c] border border-white/10 rounded-xl px-4 py-5 text-white text-sm focus:outline-none focus:border-green-500/50 focus:bg-white/5 transition-all placeholder:text-slate-700 resize-none"
+                            placeholder="Tell me about your project..."></textarea>
+                    </div>
+
+                    <button type="submit"
+                        class="relative z-10 w-full bg-green-500 text-white font-semibold py-4 rounded-xl hover:bg-green-600 transition-all flex items-center justify-center gap-2 group cursor-target shadow-lg shadow-green-500/20">
+                        <span>Send Message</span>
+                        <i data-lucide="send" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Toast Notification -->
+    <div id="toast"
+        class="fixed top-24 right-5 z-50 transform transition-all duration-500 translate-x-[150%] opacity-0">
+        <div
+            class="glass border-l-4 border-green-500 px-6 py-4 rounded-xl flex items-center gap-4 shadow-2xl bg-[#050505]/90">
+            <div class="p-2 bg-green-500/10 rounded-full text-green-400">
+                <i data-lucide="check-circle" class="w-5 h-5"></i>
+            </div>
+            <div>
+                <h4 id="toast-title" class="text-white font-medium text-sm">Success</h4>
+                <p id="toast-message" class="text-slate-400 text-xs">Message sent successfully!</p>
+            </div>
+        </div>
+    </div>
+
     <!-- Footer -->
-    <footer id="contact" class="border-t border-white/5 bg-black/80 backdrop-blur-xl relative z-10 mt-20">
+    <footer class="border-t border-white/5 bg-black/80 backdrop-blur-xl relative z-10 mt-20">
         <div class="max-w-7xl mx-auto px-6 py-16">
             <div class="flex flex-col md:flex-row justify-between gap-10">
                 <div class="space-y-4">
                     <h3 class="text-2xl font-medium text-white">Let's Connect</h3>
-                    <p class="text-slate-500 text-sm max-w-xs">Ready to bring futuristic ideas to life. Feel free to reach out for collaborations.</p>
+                    <p class="text-slate-500 text-sm max-w-xs">Ready to bring futuristic ideas to life. Feel free to
+                        reach out for collaborations.</p>
                 </div>
 
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <a href="tel:3229269129" class="glass p-4 rounded-xl flex items-center gap-3 cursor-target hover:bg-white/5 group">
-                        <div class="p-2 bg-green-500/10 rounded-lg text-green-400 group-hover:scale-110 transition-transform"><i data-lucide="phone" class="w-4 h-4"></i></div>
+                    <a href="tel:3229269129"
+                        class="glass p-4 rounded-xl flex items-center gap-3 cursor-target hover:bg-white/5 group">
+                        <div
+                            class="p-2 bg-green-500/10 rounded-lg text-green-400 group-hover:scale-110 transition-transform">
+                            <i data-lucide="phone" class="w-4 h-4"></i>
+                        </div>
                         <div class="text-sm text-slate-300">+92 322 926 9129</div>
                     </a>
-                    <a href="mailto:buttasad569@gmail.com" class="glass p-4 rounded-xl flex items-center gap-3 cursor-target hover:bg-white/5 group">
-                        <div class="p-2 bg-green-500/10 rounded-lg text-green-400 group-hover:scale-110 transition-transform"><i data-lucide="mail" class="w-4 h-4"></i></div>
+                    <a href="mailto:buttasad569@gmail.com"
+                        class="glass p-4 rounded-xl flex items-center gap-3 cursor-target hover:bg-white/5 group">
+                        <div
+                            class="p-2 bg-green-500/10 rounded-lg text-green-400 group-hover:scale-110 transition-transform">
+                            <i data-lucide="mail" class="w-4 h-4"></i>
+                        </div>
                         <div class="text-sm text-slate-300">buttasad569@gmail.com</div>
                     </a>
                     <div class="glass p-4 rounded-xl flex items-center gap-3 sm:col-span-2">
-                        <div class="p-2 bg-green-500/10 rounded-lg text-green-400"><i data-lucide="map-pin" class="w-4 h-4"></i></div>
+                        <div class="p-2 bg-green-500/10 rounded-lg text-green-400"><i data-lucide="map-pin"
+                                class="w-4 h-4"></i></div>
                         <div class="text-sm text-slate-300">Lahore, Punjab, Pakistan</div>
                     </div>
                 </div>
             </div>
 
-            <div class="mt-12 pt-8 border-t border-white/5 text-center md:text-left flex flex-col md:flex-row justify-between items-center text-xs text-slate-600">
+            <div
+                class="mt-12 pt-8 border-t border-white/5 text-center md:text-left flex flex-col md:flex-row justify-between items-center text-xs text-slate-600">
                 <p>© 2024 Asad. All rights reserved.</p>
                 <div class="flex items-center gap-2 mt-2 md:mt-0">
                     <span class="w-2 h-2 rounded-full bg-green-500"></span>
@@ -498,7 +813,8 @@
     </footer>
 
     <!-- Go To Top Button -->
-    <button id="scrollTopBtn" onclick="scrollToTop()" class="cursor-target fixed bottom-8 right-8 z-40 bg-white text-black p-3 rounded-full shadow-[0_0_20px_rgba(255,255,255,0.4)] translate-y-24 opacity-0 transition-all duration-500 hover:scale-110 hover:shadow-[0_0_30px_rgba(74,222,128,0.6)] focus:outline-none">
+    <button id="scrollTopBtn" onclick="scrollToTop()"
+        class="cursor-target fixed bottom-8 right-8 z-40 bg-white text-black p-3 rounded-full shadow-[0_0_20px_rgba(255,255,255,0.4)] translate-y-24 opacity-0 transition-all duration-500 hover:scale-110 hover:shadow-[0_0_30px_rgba(74,222,128,0.6)] focus:outline-none">
         <i data-lucide="arrow-up" class="w-5 h-5"></i>
     </button>
 
@@ -530,13 +846,13 @@
             // Lerp (Linear Interpolation) for smooth delay
             const dx = mouseX - cursorX;
             const dy = mouseY - cursorY;
-            
+
             cursorX += dx * 0.15;
             cursorY += dy * 0.15;
-            
+
             cursor.style.left = cursorX + 'px';
             cursor.style.top = cursorY + 'px';
-            
+
             requestAnimationFrame(animateCursor);
         }
         animateCursor();
@@ -606,7 +922,93 @@
             });
         });
 
-        
+
     </script>
 
-</body></html>
+    <script>
+        // Form Handling & Toast Logic
+        const contactForm = document.getElementById('contactForm');
+        const toast = document.getElementById('toast');
+        const toastTitle = document.getElementById('toast-title');
+        const toastMessage = document.getElementById('toast-message');
+        // Select icon container and icon for state changes
+        // Layout: .glass > .p-2 (icon container) > i (icon)
+        // We need to be careful with selectors.
+        const toastIconContainer = toast.querySelector('div > div:first-child');
+        const toastIcon = toastIconContainer.querySelector('i');
+        const toastBorder = toast.querySelector('.glass'); // The wrapper has the border logic
+
+        function showToast(title, message, type = 'success') {
+            // Update Text
+            toastTitle.textContent = title;
+            toastMessage.textContent = message;
+
+            // Update Styles
+            // Default is Success: border-green-500, bg-green-500/10, text-green-400
+            if (type === 'success') {
+                toastBorder.classList.remove('border-red-500');
+                toastBorder.classList.add('border-green-500');
+
+                toastIconContainer.classList.remove('bg-red-500/10', 'text-red-400');
+                toastIconContainer.classList.add('bg-green-500/10', 'text-green-400');
+
+                toastIcon.setAttribute('data-lucide', 'check-circle');
+            } else {
+                toastBorder.classList.remove('border-green-500');
+                toastBorder.classList.add('border-red-500');
+
+                toastIconContainer.classList.remove('bg-green-500/10', 'text-green-400');
+                toastIconContainer.classList.add('bg-red-500/10', 'text-red-400');
+
+                toastIcon.setAttribute('data-lucide', 'alert-circle');
+            }
+
+            // Re-render icons for new attribute
+            lucide.createIcons();
+
+            // Animate In
+            toast.classList.remove('translate-x-[150%]', 'opacity-0');
+
+            // Animate Out after delay
+            setTimeout(() => {
+                toast.classList.add('translate-x-[150%]', 'opacity-0');
+            }, 3000);
+        }
+
+        contactForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            const submitBtn = contactForm.querySelector('button');
+            const originalBtnContent = submitBtn.innerHTML;
+
+            // Loading State
+            submitBtn.innerHTML = '<span class="animate-pulse">Sending...</span>';
+            submitBtn.disabled = true;
+            submitBtn.classList.add('opacity-70', 'cursor-not-allowed');
+
+            // Simulate Network Request
+            setTimeout(() => {
+                // Simulate random success/failure (80% success rate)
+                const isSuccess = Math.random() > 0.2;
+
+                if (isSuccess) {
+                    showToast('Success', 'Message sent successfully!');
+                    contactForm.reset();
+                } else {
+                    showToast('Error', 'Message sent failed. Please try again.', 'error');
+                }
+
+                // Reset Button
+                submitBtn.innerHTML = originalBtnContent;
+                submitBtn.disabled = false;
+                submitBtn.classList.remove('opacity-70', 'cursor-not-allowed');
+
+                // Re-init icons in button
+                lucide.createIcons();
+            }, 1500);
+        });
+    </script>
+
+</body>
+
+</html>

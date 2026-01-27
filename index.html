@@ -714,12 +714,17 @@
         let cursorX = 0, cursorY = 0;
 
         document.addEventListener('mousemove', (e) => {
+            if (window.innerWidth < 1024) return;
             mouseX = e.clientX;
             mouseY = e.clientY;
         });
 
         // Smooth follow loop
         function animateCursor() {
+            if (window.innerWidth < 1024) {
+                requestAnimationFrame(animateCursor);
+                return;
+            }
             // Lerp (Linear Interpolation) for smooth delay
             const dx = mouseX - cursorX;
             const dy = mouseY - cursorY;
@@ -735,15 +740,23 @@
         animateCursor();
 
         // Click interaction (Contract)
-        document.addEventListener('mousedown', () => document.body.classList.add('is-clicking'));
-        document.addEventListener('mouseup', () => document.body.classList.remove('is-clicking'));
+        document.addEventListener('mousedown', () => {
+            if (window.innerWidth >= 1024) document.body.classList.add('is-clicking');
+        });
+        document.addEventListener('mouseup', () => {
+            if (window.innerWidth >= 1024) document.body.classList.remove('is-clicking');
+        });
 
         // Hover interaction (Expand)
         // Add event listeners to all interactive elements identified by class or tag
         const interactiveElements = document.querySelectorAll('a, button, .cursor-target');
         interactiveElements.forEach(el => {
-            el.addEventListener('mouseenter', () => document.body.classList.add('is-hovering'));
-            el.addEventListener('mouseleave', () => document.body.classList.remove('is-hovering'));
+            el.addEventListener('mouseenter', () => {
+                if (window.innerWidth >= 1024) document.body.classList.add('is-hovering');
+            });
+            el.addEventListener('mouseleave', () => {
+                if (window.innerWidth >= 1024) document.body.classList.remove('is-hovering');
+            });
         });
 
         // Scroll to Top Logic

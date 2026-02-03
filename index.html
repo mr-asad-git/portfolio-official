@@ -9,6 +9,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 </head>
 
 <body class="text-slate-300 antialiased selection:bg-green-500/30 selection:text-white relative">
@@ -388,7 +389,7 @@
                             <p class="text-xs text-slate-500 uppercase tracking-wider mb-2">District Gujrat</p>
                             <div class="flex items-center gap-2 mt-4">
                                 <span class="text-sm text-white bg-white/10 px-3 py-1 rounded-full">Graduated</span>
-                                <span class="text-sm text-green-400 font-mono">3.6 CGPA</span>
+                                <span class="text-sm text-green-400 font-mono">3.13 CGPA</span>
                             </div>
                         </div>
                     </div>
@@ -403,7 +404,6 @@
                             <p class="text-xs text-slate-500 uppercase tracking-wider mb-2">Kalra Khasa, Gujrat</p>
                             <div class="flex items-center gap-2 mt-4">
                                 <span class="text-sm text-white bg-white/10 px-3 py-1 rounded-full">Graduated</span>
-                                <!-- <span class="text-sm text-green-400 font-mono">3.6 CGPA</span> -->
                             </div>
                         </div>
                     </div>
@@ -632,18 +632,26 @@
                         class="absolute top-0 right-0 w-32 h-32 bg-green-500/10 blur-2xl rounded-full pointer-events-none">
                     </div>
 
+                    <div class="space-y-2 relative z-10">
+                        <label for="receiver"
+                            class="text-xs font-semibold text-slate-500 uppercase tracking-widest pl-1">To</label>
+                        <input type="email" id="receiver" disabled value="buttasad569@gmail.com"
+                            class="w-full bg-[#0c0c0c]/50 border border-white/10 rounded-xl px-4 py-5 text-slate-400 text-sm cursor-not-allowed"
+                            placeholder="buttasad569@gmail.com">
+                    </div>
+
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 relative z-10">
                         <div class="space-y-2">
                             <label for="name"
                                 class="text-xs font-semibold text-slate-500 uppercase tracking-widest pl-1">Name</label>
-                            <input type="text" id="name" required
+                            <input type="text" id="name" name="name" required
                                 class="w-full bg-[#0c0c0c] border border-white/10 rounded-xl px-4 py-5 text-white text-sm focus:outline-none focus:border-green-500/50 focus:bg-white/5 transition-all placeholder:text-slate-700"
                                 placeholder="Your Name">
                         </div>
                         <div class="space-y-2">
                             <label for="email"
                                 class="text-xs font-semibold text-slate-500 uppercase tracking-widest pl-1">Email</label>
-                            <input type="email" id="email" required
+                            <input type="email" id="email" name="email" required
                                 class="w-full bg-[#0c0c0c] border border-white/10 rounded-xl px-4 py-5 text-white text-sm focus:outline-none focus:border-green-500/50 focus:bg-white/5 transition-all placeholder:text-slate-700"
                                 placeholder="your@email.com">
                         </div>
@@ -652,7 +660,7 @@
                     <div class="space-y-2 relative z-10">
                         <label for="message"
                             class="text-xs font-semibold text-slate-500 uppercase tracking-widest pl-1">Message</label>
-                        <textarea id="message" required rows="8"
+                        <textarea id="message" name="message" required rows="8"
                             class="w-full bg-[#0c0c0c] border border-white/10 rounded-xl px-4 py-5 text-white text-sm focus:outline-none focus:border-green-500/50 focus:bg-white/5 transition-all placeholder:text-slate-700 resize-none"
                             placeholder="Tell me about your project..."></textarea>
                     </div>
@@ -668,16 +676,14 @@
     </section>
 
     <!-- Toast Notification -->
-    <div id="toast"
-        class="fixed top-24 right-5 z-50 transform transition-all duration-500 translate-x-[150%] opacity-0">
-        <div
-            class="glass border-l-4 border-green-500 px-6 py-4 rounded-xl flex items-center gap-4 shadow-2xl bg-[#050505]/90">
-            <div class="p-2 bg-green-500/10 rounded-full text-green-400">
-                <i data-lucide="check-circle" class="w-5 h-5"></i>
+    <div id="toast" style="display: none; position: fixed; top: 100px; right: 20px; z-index: 99999;">
+        <div id="toast-content" style="background: rgba(5, 5, 5, 0.95); backdrop-filter: blur(10px); border-left: 4px solid #10b981; padding: 16px 24px; border-radius: 12px; display: flex; align-items: center; gap: 16px; box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5); min-width: 300px;">
+            <div id="toast-icon" style="width: 40px; height: 40px; background: rgba(16, 185, 129, 0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 20px;">
+                ✓
             </div>
             <div>
-                <h4 id="toast-title" class="text-white font-medium text-sm">Success</h4>
-                <p id="toast-message" class="text-slate-400 text-xs">Message sent successfully!</p>
+                <h4 id="toast-title" style="color: white; font-weight: 600; font-size: 14px; margin: 0 0 4px 0;">Success</h4>
+                <p id="toast-message" style="color: #94a3b8; font-size: 12px; margin: 0;">Message sent successfully!</p>
             </div>
         </div>
     </div>
@@ -857,52 +863,55 @@
     <script>
         // Form Handling & Toast Logic
         const contactForm = document.getElementById('contactForm');
-        const toast = document.getElementById('toast');
-        const toastTitle = document.getElementById('toast-title');
-        const toastMessage = document.getElementById('toast-message');
-        // Select icon container and icon for state changes
-        // Layout: .glass > .p-2 (icon container) > i (icon)
-        // We need to be careful with selectors.
-        const toastIconContainer = toast.querySelector('div > div:first-child');
-        const toastIcon = toastIconContainer.querySelector('i');
-        const toastBorder = toast.querySelector('.glass'); // The wrapper has the border logic
 
+        // Simple Toast Function
         function showToast(title, message, type = 'success') {
-            // Update Text
+            const toast = document.getElementById('toast');
+            const toastContent = document.getElementById('toast-content');
+            const toastIcon = document.getElementById('toast-icon');
+            const toastTitle = document.getElementById('toast-title');
+            const toastMessage = document.getElementById('toast-message');
+
+            // Update content
             toastTitle.textContent = title;
             toastMessage.textContent = message;
 
-            // Update Styles
-            // Default is Success: border-green-500, bg-green-500/10, text-green-400
+            // Update styles based on type
             if (type === 'success') {
-                toastBorder.classList.remove('border-red-500');
-                toastBorder.classList.add('border-green-500');
-
-                toastIconContainer.classList.remove('bg-red-500/10', 'text-red-400');
-                toastIconContainer.classList.add('bg-green-500/10', 'text-green-400');
-
-                toastIcon.setAttribute('data-lucide', 'check-circle');
+                toastContent.style.borderLeftColor = '#10b981';
+                toastIcon.style.background = 'rgba(16, 185, 129, 0.1)';
+                toastIcon.textContent = '✓';
             } else {
-                toastBorder.classList.remove('border-green-500');
-                toastBorder.classList.add('border-red-500');
-
-                toastIconContainer.classList.remove('bg-green-500/10', 'text-green-400');
-                toastIconContainer.classList.add('bg-red-500/10', 'text-red-400');
-
-                toastIcon.setAttribute('data-lucide', 'alert-circle');
+                toastContent.style.borderLeftColor = '#ef4444';
+                toastIcon.style.background = 'rgba(239, 68, 68, 0.1)';
+                toastIcon.textContent = '✕';
             }
 
-            // Re-render icons for new attribute
-            lucide.createIcons();
+            // Show toast with animation
+            toast.style.display = 'block';
+            toast.style.transform = 'translateX(400px)';
+            toast.style.transition = 'transform 0.3s ease-out';
 
-            // Animate In
-            toast.classList.remove('translate-x-[150%]', 'opacity-0');
-
-            // Animate Out after delay
+            // Slide in
             setTimeout(() => {
-                toast.classList.add('translate-x-[150%]', 'opacity-0');
-            }, 3000);
+                toast.style.transform = 'translateX(0)';
+            }, 10);
+
+            // Auto hide after 4 seconds
+            setTimeout(() => {
+                toast.style.transform = 'translateX(400px)';
+                setTimeout(() => {
+                    toast.style.display = 'none';
+                }, 300);
+            }, 4000);
+
+            console.log('Toast shown:', title, message, type);
         }
+
+        // Initialize EmailJS
+        (function () {
+            emailjs.init("qY3x1VmXKwl3-8qbS"); // Replace with your EmailJS public key
+        })();
 
         contactForm.addEventListener('submit', (e) => {
             e.preventDefault();
@@ -910,31 +919,117 @@
             const submitBtn = contactForm.querySelector('button');
             const originalBtnContent = submitBtn.innerHTML;
 
+            // Get form values
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const message = document.getElementById('message').value;
+            const receiver = document.getElementById('receiver').value;
+
+            // Get current date and time
+            const currentDate = new Date().toLocaleString('en-US', {
+                weekday: 'long',
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit'
+            });
+
             // Loading State
             submitBtn.innerHTML = '<span class="animate-pulse">Sending...</span>';
             submitBtn.disabled = true;
             submitBtn.classList.add('opacity-70', 'cursor-not-allowed');
 
-            // Simulate Network Request
-            setTimeout(() => {
-                // Simulate random success/failure (80% success rate)
-                const isSuccess = Math.random() > 0.2;
+            // Prepare email parameters with formatted HTML
+            const templateParams = {
+                to_email: receiver,
+                from_name: name,
+                from_email: email,
+                message: message,
+                date_time: currentDate,
+                // Formatted HTML message
+                html_message: `
+                    <div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; max-width: 600px; margin: 0 auto; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 40px 20px; border-radius: 10px;">
+                        <div style="background: white; padding: 30px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
+                            <div style="text-align: center; margin-bottom: 30px;">
+                                <h1 style="color: #667eea; margin: 0; font-size: 28px; font-weight: 700;">📬 New Contact Form Message</h1>
+                                <div style="width: 50px; height: 3px; background: linear-gradient(90deg, #667eea, #764ba2); margin: 15px auto;"></div>
+                            </div>
 
-                if (isSuccess) {
-                    showToast('Success', 'Message sent successfully!');
+                            <div style="background: #f8f9fa; padding: 20px; border-radius: 8px; margin-bottom: 20px;">
+                                <h2 style="color: #333; font-size: 18px; margin-top: 0; margin-bottom: 15px; display: flex; align-items: center;">
+                                    <span style="background: #667eea; color: white; width: 30px; height: 30px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; margin-right: 10px; font-size: 16px;">👤</span>
+                                    Sender Information
+                                </h2>
+                                <table style="width: 100%; border-collapse: collapse;">
+                                    <tr>
+                                        <td style="padding: 10px 0; color: #666; font-weight: 600; width: 120px;">Full Name:</td>
+                                        <td style="padding: 10px 0; color: #333; font-weight: 500;">${name}</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding: 10px 0; color: #666; font-weight: 600;">Email:</td>
+                                        <td style="padding: 10px 0;"><a href="mailto:${email}" style="color: #667eea; text-decoration: none; font-weight: 500;">${email}</a></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding: 10px 0; color: #666; font-weight: 600;">Received:</td>
+                                        <td style="padding: 10px 0; color: #333; font-weight: 500;">${currentDate}</td>
+                                    </tr>
+                                </table>
+                            </div>
+
+                            <div style="background: #f8f9fa; padding: 20px; border-radius: 8px; margin-bottom: 20px;">
+                                <h2 style="color: #333; font-size: 18px; margin-top: 0; margin-bottom: 15px; display: flex; align-items: center;">
+                                    <span style="background: #764ba2; color: white; width: 30px; height: 30px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; margin-right: 10px; font-size: 16px;">💬</span>
+                                    Message Content
+                                </h2>
+                                <div style="background: white; padding: 15px; border-radius: 6px; border-left: 4px solid #667eea; line-height: 1.6; color: #333;">
+                                    ${message.replace(/\n/g, '<br>')}
+                                </div>
+                            </div>
+
+                            <div style="text-align: center; padding-top: 20px; border-top: 2px solid #e9ecef;">
+                                <a href="mailto:${email}" style="display: inline-block; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 12px 30px; text-decoration: none; border-radius: 25px; font-weight: 600; box-shadow: 0 4px 6px rgba(102, 126, 234, 0.3); transition: all 0.3s ease;">
+                                    📧 Reply to ${name}
+                                </a>
+                            </div>
+
+                            <div style="text-align: center; margin-top: 25px; padding-top: 20px; border-top: 1px solid #e9ecef;">
+                                <p style="color: #999; font-size: 12px; margin: 0;">This message was sent via your portfolio contact form</p>
+                                <p style="color: #999; font-size: 12px; margin: 5px 0 0 0;">© ${new Date().getFullYear()} Asad Ullah Portfolio</p>
+                            </div>
+                        </div>
+                    </div>
+                `
+            };
+
+            // Send email using EmailJS
+            emailjs.send("service_1puuf2q", "template_mu5rxkr", templateParams)
+                .then((response) => {
+                    console.log('SUCCESS!', response.status, response.text);
+                    showToast('Success', 'Message sent successfully! I\'ll get back to you soon.');
                     contactForm.reset();
-                } else {
-                    showToast('Error', 'Message sent failed. Please try again.', 'error');
-                }
 
-                // Reset Button
-                submitBtn.innerHTML = originalBtnContent;
-                submitBtn.disabled = false;
-                submitBtn.classList.remove('opacity-70', 'cursor-not-allowed');
+                    // Reset Button
+                    submitBtn.innerHTML = originalBtnContent;
+                    submitBtn.disabled = false;
+                    submitBtn.classList.remove('opacity-70', 'cursor-not-allowed');
 
-                // Re-init icons in button
-                lucide.createIcons();
-            }, 1500);
+                    // Re-init icons in button
+                    lucide.createIcons();
+                })
+                .catch((error) => {
+                    console.error('FAILED...', error);
+                    showToast('Error', 'Failed to send message. Please try again or email me directly.', 'error');
+
+                    // Reset Button
+                    submitBtn.innerHTML = originalBtnContent;
+                    submitBtn.disabled = false;
+                    submitBtn.classList.remove('opacity-70', 'cursor-not-allowed');
+
+                    // Re-init icons in button
+                    lucide.createIcons();
+                });
         });
     </script>
 

@@ -813,8 +813,8 @@ section {
 
 .ab-grid {
     display: grid;
-    grid-template-columns: 1fr 1.4fr;
-    gap: 5rem;
+    grid-template-columns: 1fr 1.1fr;
+    gap: 4rem;
     align-items: center;
 }
 
@@ -833,8 +833,8 @@ section {
 
 .ab-hex {
     position: relative;
-    width: 290px;
-    height: 290px;
+    width: clamp(540px, 40vw, 580px);
+    height: clamp(540px, 40vw, 580px);
 }
 
 .ab-hex img {
@@ -846,6 +846,11 @@ section {
     position: relative;
     z-index: 2;
     box-shadow: var(--shadow-lg);
+    transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.ab-hex:hover img {
+    transform: scale(1.03);
 }
 
 @keyframes morph {
@@ -878,13 +883,13 @@ section {
 .ab-hex::after {
     content: '';
     position: absolute;
-    inset: -24px;
+    inset: -30px;
     border-radius: 30% 70% 70% 30%/30% 30% 70% 70%;
     background: linear-gradient(135deg, var(--cyan), var(--purple));
     z-index: 0;
     animation: morph 9s ease-in-out infinite;
-    opacity: .1;
-    filter: blur(22px);
+    opacity: .2;
+    filter: blur(30px);
 }
 
 .ab-fc {
@@ -2736,7 +2741,8 @@ section {
 .ab-fc {
     position: absolute;
     z-index: 3;
-    background: var(--surface);
+    /* background: var(--surface); */
+    background: transparent;
     backdrop-filter: blur(16px);
     border: 1.5px solid var(--border);
     border-radius: 14px;
@@ -2749,14 +2755,14 @@ section {
 }
 
 .ab-fc:nth-of-type(1) {
-    top: -1rem;
-    right: -2rem;
+    top: -1.5rem;
+    right: -7.5rem;
     animation: fc-fl 4s ease-in-out infinite;
 }
 
 .ab-fc:nth-of-type(2) {
-    bottom: 1rem;
-    left: -2.5rem;
+    bottom: 1.5rem;
+    left: -7.5rem;
     animation: fc-fl 4s ease-in-out infinite 2s;
 }
 

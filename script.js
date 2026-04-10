@@ -170,3 +170,71 @@ document.getElementById('cf').addEventListener('submit', e => {
     btn.style.boxShadow = '0 4px 18px rgba(16,185,129,.4)';
     setTimeout(() => { btn.textContent = 'Send Message →'; btn.style.background = ''; btn.style.boxShadow = ''; e.target.reset(); }, 3200);
 });
+/* =============================================
+   CUSTOM SMOOTH SCROLL ENGINE
+   (Native scroll-behavior:smooth breaks when
+   overflow-x:hidden is on body — this RAF-based
+   implementation works in all cases)
+============================================= */
+function easeInOutQuart(t) {
+    return t < 0.5 ? 8 * t * t * t * t : 1 - Math.pow(-2 * t + 2, 4) / 2;
+}
+
+let _scrollRAF = null;
+
+function smoothScrollTo(targetY, baseDuration) {
+    if (_scrollRAF) cancelAnimationFrame(_scrollRAF);
+
+    const startY  = window.scrollY;
+    const distance = targetY - startY;
+
+    // Scale duration with distance — feels natural for both small + large jumps
+    const duration = baseDuration || Math.min(1200, Math.max(500, Math.abs(distance) * 0.6));
+    const startTime = performance.now();
+
+    function tick(now) {
+        const elapsed  = now - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        window.scrollTo(0, startY + distance * easeInOutQuart(progress));
+        if (progress < 1) {
+            _scrollRAF = requestAnimationFrame(tick);
+        }
+    }
+    _scrollRAF = requestAnimationFrame(tick);
+}
+
+/* =============================================
+   SMOOTH SCROLL — all anchor links
+============================================= */
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+        const href = this.getAttribute('href');
+        if (!href || href === '#') {
+            e.preventDefault();
+            smoothScrollTo(0);
+            return;
+        }
+        const target = document.querySelector(href);
+        if (target) {
+            e.preventDefault();
+            const navHeight = document.getElementById('nav').offsetHeight;
+            const offset = Math.max(0, target.getBoundingClientRect().top + window.scrollY - navHeight - 24);
+            smoothScrollTo(offset);
+        }
+    });
+});
+
+/* =============================================
+   SCROLL TO TOP BUTTON
+============================================= */
+const sttBtn      = document.getElementById('scroll-top');
+const STT_THRESHOLD = 400;
+
+window.addEventListener('scroll', () => {
+    sttBtn.classList.toggle('stt-visible', window.scrollY > STT_THRESHOLD);
+}, { passive: true });
+
+sttBtn.addEventListener('click', () => {
+    smoothScrollTo(0, 900);
+});
+

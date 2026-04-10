@@ -15,6 +15,8 @@
         href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=Orbitron:wght@600;700;900&family=JetBrains+Mono:wght@400;600&display=swap"
         rel="stylesheet">
 
+    <!-- EmailJS -->
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 </head>
 
 <body>
@@ -578,6 +580,19 @@
 
     </main>
 
+    <!-- Toast Notification -->
+    <div id="ct-toast" style="display:none;position:fixed;top:100px;right:20px;z-index:99999;">
+        <div id="ct-toast-inner"
+            style="background:rgba(5,5,5,0.95);backdrop-filter:blur(12px);border-left:4px solid #10b981;padding:16px 24px;border-radius:12px;display:flex;align-items:center;gap:16px;box-shadow:0 10px 40px rgba(0,0,0,0.5);min-width:300px;">
+            <div id="ct-toast-ico"
+                style="width:40px;height:40px;background:rgba(16,185,129,0.12);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;">✓</div>
+            <div>
+                <h4 id="ct-toast-title" style="color:#fff;font-weight:600;font-size:14px;margin:0 0 4px;">Success</h4>
+                <p id="ct-toast-msg" style="color:#94a3b8;font-size:12px;margin:0;">Message sent successfully!</p>
+            </div>
+        </div>
+    </div>
+
     <footer>
         <div class="ctr">
             <div class="ft-inner">
@@ -606,6 +621,122 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
     <script src="script.js"></script>
+
+    <script>
+        // ── EmailJS Init ──────────────────────────────────────────
+        (function () { emailjs.init('qY3x1VmXKwl3-8qbS'); })();
+
+        // ── Toast Helper ─────────────────────────────────────────
+        function ctShowToast(title, msg, type) {
+            const toast   = document.getElementById('ct-toast');
+            const inner   = document.getElementById('ct-toast-inner');
+            const ico     = document.getElementById('ct-toast-ico');
+            const ttl     = document.getElementById('ct-toast-title');
+            const txt     = document.getElementById('ct-toast-msg');
+
+            ttl.textContent = title;
+            txt.textContent = msg;
+
+            if (type === 'error') {
+                inner.style.borderLeftColor = '#ef4444';
+                ico.style.background = 'rgba(239,68,68,0.12)';
+                ico.textContent = '✕';
+            } else {
+                inner.style.borderLeftColor = '#10b981';
+                ico.style.background = 'rgba(16,185,129,0.12)';
+                ico.textContent = '✓';
+            }
+
+            toast.style.display   = 'block';
+            toast.style.transform = 'translateX(420px)';
+            toast.style.transition = 'transform 0.35s cubic-bezier(0.34,1.56,0.64,1)';
+            setTimeout(() => { toast.style.transform = 'translateX(0)'; }, 10);
+            setTimeout(() => {
+                toast.style.transform = 'translateX(420px)';
+                setTimeout(() => { toast.style.display = 'none'; }, 350);
+            }, 4500);
+        }
+
+        // ── Contact Form Submit ───────────────────────────────────
+        document.getElementById('cf').addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            const btn  = this.querySelector('button[type="submit"]');
+            const name    = document.getElementById('fn').value.trim();
+            const email   = document.getElementById('fe').value.trim();
+            const subject = document.getElementById('fs').value.trim();
+            const message = document.getElementById('fm').value.trim();
+
+            const currentDate = new Date().toLocaleString('en-US', {
+                weekday: 'long', year: 'numeric', month: 'long',
+                day: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit'
+            });
+
+            // Loading state
+            btn.textContent = 'Sending...';
+            btn.disabled = true;
+            btn.style.opacity = '0.7';
+            btn.style.cursor  = 'not-allowed';
+
+            const templateParams = {
+                to_email   : 'buttasad569@gmail.com',
+                from_name  : name,
+                from_email : email,
+                message    : (subject ? '[' + subject + ']\n\n' : '') + message,
+                date_time  : currentDate,
+                html_message: `
+                    <div style="font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;max-width:600px;margin:0 auto;background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);padding:40px 20px;border-radius:10px;">
+                        <div style="background:#fff;padding:30px;border-radius:8px;box-shadow:0 4px 6px rgba(0,0,0,0.1);">
+                            <div style="text-align:center;margin-bottom:30px;">
+                                <h1 style="color:#667eea;margin:0;font-size:28px;font-weight:700;">📬 New Portfolio Message</h1>
+                                <div style="width:50px;height:3px;background:linear-gradient(90deg,#667eea,#764ba2);margin:15px auto;"></div>
+                            </div>
+                            <div style="background:#f8f9fa;padding:20px;border-radius:8px;margin-bottom:20px;">
+                                <h2 style="color:#333;font-size:18px;margin-top:0;margin-bottom:15px;">👤 Sender Information</h2>
+                                <table style="width:100%;border-collapse:collapse;">
+                                    <tr><td style="padding:10px 0;color:#666;font-weight:600;width:120px;">Name:</td><td style="padding:10px 0;color:#333;font-weight:500;">${name}</td></tr>
+                                    <tr><td style="padding:10px 0;color:#666;font-weight:600;">Email:</td><td style="padding:10px 0;"><a href="mailto:${email}" style="color:#667eea;text-decoration:none;font-weight:500;">${email}</a></td></tr>
+                                    ${subject ? `<tr><td style="padding:10px 0;color:#666;font-weight:600;">Subject:</td><td style="padding:10px 0;color:#333;font-weight:500;">${subject}</td></tr>` : ''}
+                                    <tr><td style="padding:10px 0;color:#666;font-weight:600;">Received:</td><td style="padding:10px 0;color:#333;font-weight:500;">${currentDate}</td></tr>
+                                </table>
+                            </div>
+                            <div style="background:#f8f9fa;padding:20px;border-radius:8px;margin-bottom:20px;">
+                                <h2 style="color:#333;font-size:18px;margin-top:0;margin-bottom:15px;">💬 Message</h2>
+                                <div style="background:#fff;padding:15px;border-radius:6px;border-left:4px solid #667eea;line-height:1.6;color:#333;">${message.replace(/\n/g,'<br>')}</div>
+                            </div>
+                            <div style="text-align:center;padding-top:20px;border-top:2px solid #e9ecef;">
+                                <a href="mailto:${email}" style="display:inline-block;background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);color:#fff;padding:12px 30px;text-decoration:none;border-radius:25px;font-weight:600;box-shadow:0 4px 6px rgba(102,126,234,.3);">📧 Reply to ${name}</a>
+                            </div>
+                            <div style="text-align:center;margin-top:25px;padding-top:20px;border-top:1px solid #e9ecef;">
+                                <p style="color:#999;font-size:12px;margin:0;">Sent via portfolio contact form</p>
+                                <p style="color:#999;font-size:12px;margin:5px 0 0;">© ${new Date().getFullYear()} Asad Ullah Portfolio</p>
+                            </div>
+                        </div>
+                    </div>`
+            };
+
+            emailjs.send('service_1puuf2q', 'template_mu5rxkr', templateParams)
+                .then(() => {
+                    ctShowToast('Message Sent!', "Thanks! I'll get back to you soon.", 'success');
+                    // Keep button permanently in success state until refresh
+                    btn.textContent  = 'Message Sent ✓';
+                    btn.disabled     = true;
+                    btn.style.opacity = '1';
+                    btn.style.cursor  = 'default';
+                    btn.style.background = '#059669';
+                    this.reset();
+                })
+                .catch((err) => {
+                    console.error('EmailJS error:', err);
+                    ctShowToast('Error', 'Failed to send. Please email me directly.', 'error');
+                    // Restore button so user can retry
+                    btn.textContent  = 'Send Message →';
+                    btn.disabled     = false;
+                    btn.style.opacity = '1';
+                    btn.style.cursor  = 'pointer';
+                });
+        });
+    </script>
 </body>
 
 </html>

@@ -31,9 +31,10 @@
     <button id="scroll-top" aria-label="Scroll to top" title="Back to top">
         <span class="stt-orbit"></span>
         <span class="stt-body">
-            <svg class="stt-chevrons" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round">
-                <polyline points="17 11 12 6 7 11"/>
-                <polyline points="17 17 12 12 7 17"/>
+            <svg class="stt-chevrons" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8"
+                stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="17 11 12 6 7 11" />
+                <polyline points="17 17 12 12 7 17" />
             </svg>
             <span class="stt-lbl">TOP</span>
         </span>
@@ -389,6 +390,24 @@
             </div>
         </section>
 
+        <!-- ===== VIEW ALL PROJECTS CTA ===== -->
+        <section style="padding:1rem 0 7rem;text-align:center;">
+            <div class="ctr rv">
+                <p class="vab-note">Explore the full spectrum of my work — professional builds &amp; personal
+                    experiments.</p>
+                <button id="all-projects-btn" class="view-all-btn" aria-label="View all projects">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2.2">
+                        <rect x="3" y="3" width="7" height="7" rx="1" />
+                        <rect x="14" y="3" width="7" height="7" rx="1" />
+                        <rect x="3" y="14" width="7" height="7" rx="1" />
+                        <rect x="14" y="14" width="7" height="7" rx="1" />
+                    </svg>
+                    <span>View All Projects</span>
+                </button>
+            </div>
+        </section>
+
         <!-- ===== SKILLS ===== -->
         <section id="skills">
             <div class="ctr">
@@ -597,7 +616,8 @@
         <div id="ct-toast-inner"
             style="background:rgba(5,5,5,0.95);backdrop-filter:blur(12px);border-left:4px solid #10b981;padding:16px 24px;border-radius:12px;display:flex;align-items:center;gap:16px;box-shadow:0 10px 40px rgba(0,0,0,0.5);min-width:300px;">
             <div id="ct-toast-ico"
-                style="width:40px;height:40px;background:rgba(16,185,129,0.12);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;">✓</div>
+                style="width:40px;height:40px;background:rgba(16,185,129,0.12);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;">
+                ✓</div>
             <div>
                 <h4 id="ct-toast-title" style="color:#fff;font-weight:600;font-size:14px;margin:0 0 4px;">Success</h4>
                 <p id="ct-toast-msg" style="color:#94a3b8;font-size:12px;margin:0;">Message sent successfully!</p>
@@ -640,11 +660,11 @@
 
         // ── Toast Helper ─────────────────────────────────────────
         function ctShowToast(title, msg, type) {
-            const toast   = document.getElementById('ct-toast');
-            const inner   = document.getElementById('ct-toast-inner');
-            const ico     = document.getElementById('ct-toast-ico');
-            const ttl     = document.getElementById('ct-toast-title');
-            const txt     = document.getElementById('ct-toast-msg');
+            const toast = document.getElementById('ct-toast');
+            const inner = document.getElementById('ct-toast-inner');
+            const ico = document.getElementById('ct-toast-ico');
+            const ttl = document.getElementById('ct-toast-title');
+            const txt = document.getElementById('ct-toast-msg');
 
             ttl.textContent = title;
             txt.textContent = msg;
@@ -659,7 +679,7 @@
                 ico.textContent = '✓';
             }
 
-            toast.style.display   = 'block';
+            toast.style.display = 'block';
             toast.style.transform = 'translateX(420px)';
             toast.style.transition = 'transform 0.35s cubic-bezier(0.34,1.56,0.64,1)';
             setTimeout(() => { toast.style.transform = 'translateX(0)'; }, 10);
@@ -673,9 +693,9 @@
         document.getElementById('cf').addEventListener('submit', function (e) {
             e.preventDefault();
 
-            const btn  = this.querySelector('button[type="submit"]');
-            const name    = document.getElementById('fn').value.trim();
-            const email   = document.getElementById('fe').value.trim();
+            const btn = this.querySelector('button[type="submit"]');
+            const name = document.getElementById('fn').value.trim();
+            const email = document.getElementById('fe').value.trim();
             const subject = document.getElementById('fs').value.trim();
             const message = document.getElementById('fm').value.trim();
 
@@ -688,13 +708,13 @@
             btn.textContent = 'Sending...';
             btn.disabled = true;
             btn.style.opacity = '0.7';
-            btn.style.cursor  = 'not-allowed';
+            btn.style.cursor = 'not-allowed';
 
             const templateParams = {
-                name   : name,
-                email  : email,
+                name: name,
+                email: email,
                 subject: subject || '(no subject)',
-                date   : currentDate,
+                date: currentDate,
                 message: message
             };
 
@@ -702,10 +722,10 @@
                 .then(() => {
                     ctShowToast('Message Sent!', "Thanks! I'll get back to you soon.", 'success');
                     // Keep button permanently in success state until refresh
-                    btn.textContent  = 'Message Sent ✓';
-                    btn.disabled     = true;
+                    btn.textContent = 'Message Sent ✓';
+                    btn.disabled = true;
                     btn.style.opacity = '1';
-                    btn.style.cursor  = 'default';
+                    btn.style.cursor = 'default';
                     btn.style.background = '#059669';
                     this.reset();
                 })
@@ -713,13 +733,218 @@
                     console.error('EmailJS error:', err);
                     ctShowToast('Error', 'Failed to send. Please email me directly.', 'error');
                     // Restore button so user can retry
-                    btn.textContent  = 'Send Message →';
-                    btn.disabled     = false;
+                    btn.textContent = 'Send Message →';
+                    btn.disabled = false;
                     btn.style.opacity = '1';
-                    btn.style.cursor  = 'pointer';
+                    btn.style.cursor = 'pointer';
                 });
         });
     </script>
+
+    <!-- ===== ALL PROJECTS MODAL ===== -->
+    <div id="all-projects-modal" class="apm-overlay" role="dialog" aria-modal="true" aria-label="All Projects" hidden>
+        <div class="apm-backdrop" id="apm-backdrop"></div>
+        <div class="apm-panel">
+
+            <!-- Close Button -->
+            <button class="apm-close" id="apm-close" aria-label="Close all projects">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                    stroke-linecap="round">
+                    <line x1="18" y1="6" x2="6" y2="18" />
+                    <line x1="6" y1="6" x2="18" y2="18" />
+                </svg>
+            </button>
+
+            <!-- ===== WORK HERO (Three.js canvas lives here) ===== -->
+            <div class="apm-work-hero">
+                <canvas id="apm-canvas"></canvas>
+                <div class="apm-work-hero-content">
+                    <span class="apm-cat-tag">// professional work</span>
+                    <h2 class="apm-company-name">VisionBird <span class="grd">Technologies</span></h2>
+                    <p class="apm-company-sub">Software House &nbsp;&middot;&nbsp; Internship &amp; Production Work</p>
+                    <p class="apm-company-desc">Production-grade software across CMS, healthcare &amp; e-commerce —
+                        shipping real features for real users.</p>
+                    <div class="apm-hero-badges">
+                        <span class="apm-hero-badge">3 Projects</span>
+                        <span class="apm-hero-badge">React &middot; Vue.js &middot; Next.js</span>
+                        <span class="apm-hero-badge">Production Ready</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ===== WORK CARDS ===== -->
+            <div class="apm-work-grid">
+
+                <!-- CMS Portal -->
+                <div class="apm-work-card apm-wc-cyan">
+                    <div class="apm-wc-header">
+                        <span class="apm-wc-num">01</span>
+                        <span class="apm-wc-type">Internal Tool &middot; CMS</span>
+                    </div>
+                    <h3 class="apm-wc-title">VisionBird CMS Portal</h3>
+                    <ul class="apm-wc-list">
+                        <li>Internee &rarr; Employee conversion: data prefilled from internee profile — zero manual
+                            re-entry</li>
+                        <li>Interview rescheduling system with calendar-aware logic for internees</li>
+                        <li>Business-hours constraint enforcement for interview scheduling (logical bug fix)</li>
+                        <li>Analyzed and optimized full storage-to-frontend data pipeline</li>
+                        <li>Resolved UI regressions: glitchy sidebar, excess whitespace, layout shifts</li>
+                    </ul>
+                    <div class="apm-wc-stack">
+                        <span class="apm-tag">React</span><span class="apm-tag">REST API</span><span
+                            class="apm-tag">Node.js</span>
+                    </div>
+                </div>
+
+                <!-- Dawacare -->
+                <div class="apm-work-card apm-wc-purple">
+                    <div class="apm-wc-header">
+                        <span class="apm-wc-num">02</span>
+                        <span class="apm-wc-type">Healthcare &middot; Pharmacy</span>
+                    </div>
+                    <h3 class="apm-wc-title">Dawacare</h3>
+                    <ul class="apm-wc-list">
+                        <li>Full UI overhaul — improved visual hierarchy and component consistency across all screens
+                        </li>
+                        <li>Identified and documented faulty UX patterns and reported to design team</li>
+                        <li>End-to-end logic audit across pharmacy management, prescription handling &amp; order
+                            tracking</li>
+                        <li>Validated and fixed broken edge-case flows in core pharmacy module</li>
+                    </ul>
+                    <div class="apm-wc-stack">
+                        <span class="apm-tag">Vue.js</span><span class="apm-tag">Tailwind CSS</span><span
+                            class="apm-tag">REST API</span>
+                    </div>
+                </div>
+
+                <!-- E-Commerce -->
+                <div class="apm-work-card apm-wc-amber">
+                    <div class="apm-wc-header">
+                        <span class="apm-wc-num">03</span>
+                        <span class="apm-wc-type">E-Commerce Platform</span>
+                    </div>
+                    <h3 class="apm-wc-title">E-Commerce Website</h3>
+                    <ul class="apm-wc-list">
+                        <li>Fully responsive cart-to-checkout flow built from scratch</li>
+                        <li>Multi-step checkout: cart &rarr; address &rarr; payment &rarr; confirmation</li>
+                        <li>Dynamic product filtering by category, price &amp; rating</li>
+                        <li>Pixel-aligned UI improvements maintained across all breakpoints</li>
+                        <li>Real-time stock validation to prevent over-ordering at checkout</li>
+                    </ul>
+                    <div class="apm-wc-stack">
+                        <span class="apm-tag">React</span><span class="apm-tag">Redux</span><span
+                            class="apm-tag">Tailwind CSS</span>
+                    </div>
+                </div>
+
+            </div><!-- /apm-work-grid -->
+
+            <!-- ===== PERSONAL SECTION HEADER ===== -->
+            <div class="apm-personal-header">
+                <span class="apm-cat-tag apm-cat-center">// personal projects</span>
+                <h2 class="apm-personal-title">My Own <span class="grd">Builds</span></h2>
+                <p class="apm-personal-sub">Side projects where I own every decision — from architecture to deployment.
+                </p>
+            </div>
+
+            <!-- ===== PERSONAL CARDS ===== -->
+            <div class="apm-personal-grid">
+
+                <!-- TaskFlow -->
+                <div class="apm-pc">
+                    <div class="apm-pc-img">
+                        <img src="userdata/projectPreviews/p1/p1.png" alt="TaskFlow Management">
+                        <div class="apm-pc-overlay"></div>
+                        <span class="apm-pc-badge" style="background:var(--cyan)">Task Management</span>
+                    </div>
+                    <div class="apm-pc-body">
+                        <h3 class="apm-pc-title">TaskFlow Management</h3>
+                        <p class="apm-pc-desc">Real-time task board with drag-and-drop, granular permission controls,
+                            and team collaboration.</p>
+                        <div class="apm-pc-stack">
+                            <span class="sk-tag">React</span><span class="sk-tag">Redux</span><span
+                                class="sk-tag">Tailwind CSS</span>
+                        </div>
+                        <a href="https://project-management-seven-mu.vercel.app/" target="_blank" class="pj-lk apm-lk">
+                            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2.5">
+                                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+                                <polyline points="15 3 21 3 21 9" />
+                                <line x1="10" y1="14" x2="21" y2="3" />
+                            </svg>
+                            View Live
+                        </a>
+                    </div>
+                </div>
+
+                <!-- MORENT -->
+                <div class="apm-pc">
+                    <div class="apm-pc-img">
+                        <img src="userdata/projectPreviews/p2/image4.png" alt="MORENT Car Rental">
+                        <div class="apm-pc-overlay"></div>
+                        <span class="apm-pc-badge" style="background:var(--purple)">Car Rental</span>
+                    </div>
+                    <div class="apm-pc-body">
+                        <h3 class="apm-pc-title">MORENT E-Commerce</h3>
+                        <p class="apm-pc-desc">Car rental app with advanced search filtering, multi-step checkout, and
+                            Next.js performance optimizations.</p>
+                        <div class="apm-pc-stack">
+                            <span class="sk-tag" style="color:var(--cyan)">Next.js</span>
+                            <span class="sk-tag" style="color:var(--cyan)">TypeScript</span>
+                            <span class="sk-tag" style="color:var(--cyan)">Tailwind</span>
+                        </div>
+                        <a href="https://morent-carselling.vercel.app/" target="_blank" class="pj-lk apm-lk"
+                            style="background:var(--purple);box-shadow:0 4px 14px rgba(139,92,246,.35)">
+                            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2.5">
+                                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+                                <polyline points="15 3 21 3 21 9" />
+                                <line x1="10" y1="14" x2="21" y2="3" />
+                            </svg>
+                            View Live
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Threat Eagle -->
+                <div class="apm-pc">
+                    <div class="apm-pc-img">
+                        <img src="userdata/projectPreviews/p3/image1.png" alt="Threat Eagle">
+                        <div class="apm-pc-overlay"></div>
+                        <span class="apm-pc-badge" style="background:var(--amber)">Cybersecurity</span>
+                    </div>
+                    <div class="apm-pc-body">
+                        <h3 class="apm-pc-title">Threat Eagle</h3>
+                        <p class="apm-pc-desc">High-contrast cybersecurity monitoring interface with real-time D3.js
+                            threat visualizations for SOC teams.</p>
+                        <div class="apm-pc-stack">
+                            <span class="sk-tag" style="color:var(--amber)">Vue.js</span>
+                            <span class="sk-tag" style="color:var(--amber)">D3.js</span>
+                            <span class="sk-tag" style="color:var(--amber)">WebSockets</span>
+                        </div>
+                        <a href="https://threat-eagle.vercel.app/" target="_blank" class="pj-lk apm-lk"
+                            style="background:var(--amber);box-shadow:0 4px 14px rgba(245,158,11,.35)">
+                            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2.5">
+                                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+                                <polyline points="15 3 21 3 21 9" />
+                                <line x1="10" y1="14" x2="21" y2="3" />
+                            </svg>
+                            View Live
+                        </a>
+                    </div>
+                </div>
+
+            </div><!-- /apm-personal-grid -->
+
+            <!-- Modal Footer -->
+            <div class="apm-modal-footer">
+                <button class="apm-close-btn" id="apm-close-bottom">Close Panel &times;</button>
+            </div>
+
+        </div><!-- /apm-panel -->
+    </div><!-- /apm-overlay -->
+
 </body>
 
 </html>

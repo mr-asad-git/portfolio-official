@@ -238,3 +238,180 @@ sttBtn.addEventListener('click', () => {
     smoothScrollTo(0, 900);
 });
 
+/* =============================================
+   ALL PROJECTS MODAL
+============================================= */
+let apmRenderer = null, apmScene = null, apmCam = null, apmAnimId = null;
+let apmPts = null, apmLines = null, apmVelocities = [];
+
+function initApmScene() {
+    const canvas = document.getElementById('apm-canvas');
+    if (!canvas || apmRenderer) return;
+
+    const isDark = html.getAttribute('data-theme') === 'dark';
+    const W = canvas.offsetWidth || canvas.parentElement.offsetWidth;
+    const H = canvas.offsetHeight || canvas.parentElement.offsetHeight;
+
+    apmRenderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
+    apmRenderer.setPixelRatio(Math.min(devicePixelRatio, 1.5));
+    apmRenderer.setSize(W, H);
+
+    apmScene = new THREE.Scene();
+    apmCam = new THREE.PerspectiveCamera(60, W / H, 0.1, 100);
+    apmCam.position.z = 5;
+
+    /* --- Particles --- */
+    const COUNT = Math.min(160, Math.floor(W * 0.22));
+    const pos = new Float32Array(COUNT * 3);
+    apmVelocities = [];
+
+    const spread = { x: Math.max(8, W / 80), y: Math.max(4, H / 80) };
+
+    for (let i = 0; i < COUNT; i++) {
+        pos[i * 3]     = (Math.random() - 0.5) * spread.x;
+        pos[i * 3 + 1] = (Math.random() - 0.5) * spread.y;
+        pos[i * 3 + 2] = (Math.random() - 0.5) * 2;
+        apmVelocities.push(
+            (Math.random() - 0.5) * 0.006,
+            (Math.random() - 0.5) * 0.004,
+            0
+        );
+    }
+
+    const ptGeo = new THREE.BufferGeometry();
+    ptGeo.setAttribute('position', new THREE.BufferAttribute(pos, 3));
+
+    const ptMat = new THREE.PointsMaterial({
+        size: 0.065,
+        color: isDark ? 0x00f5ff : 0x0ea5e9,
+        transparent: true,
+        opacity: isDark ? 0.9 : 0.75,
+        sizeAttenuation: true,
+        depthWrite: false,
+        blending: THREE.AdditiveBlending
+    });
+
+    apmPts = new THREE.Points(ptGeo, ptMat);
+    apmScene.add(apmPts);
+
+    /* --- Connection lines (pre-allocated buffer) --- */
+    const MAX_SEGS = COUNT * 12;
+    const linePos = new Float32Array(MAX_SEGS * 6);
+    const lineGeo = new THREE.BufferGeometry();
+    lineGeo.setAttribute('position', new THREE.BufferAttribute(linePos, 3));
+    lineGeo.setDrawRange(0, 0);
+
+    const lineMat = new THREE.LineBasicMaterial({
+        color: isDark ? 0x00f5ff : 0x0ea5e9,
+        transparent: true,
+        opacity: isDark ? 0.18 : 0.12,
+        depthWrite: false,
+        blending: THREE.AdditiveBlending
+    });
+
+    apmLines = new THREE.LineSegments(lineGeo, lineMat);
+    apmScene.add(apmLines);
+
+    const CONNECT_DIST = 2.2;
+    const halfX = spread.x / 2;
+    const halfY = spread.y / 2;
+
+    function tick() {
+        apmAnimId = requestAnimationFrame(tick);
+        const pa = apmPts.geometry.attributes.position.array;
+
+        /* Move & bounce particles */
+        for (let i = 0; i < COUNT; i++) {
+            pa[i * 3]     += apmVelocities[i * 3];
+            pa[i * 3 + 1] += apmVelocities[i * 3 + 1];
+            if (Math.abs(pa[i * 3])     > halfX) apmVelocities[i * 3]     *= -1;
+            if (Math.abs(pa[i * 3 + 1]) > halfY) apmVelocities[i * 3 + 1] *= -1;
+        }
+        apmPts.geometry.attributes.position.needsUpdate = true;
+
+        /* Rebuild connection lines */
+        const la = apmLines.geometry.attributes.position.array;
+        let li = 0;
+
+        for (let i = 0; i < COUNT; i++) {
+            for (let j = i + 1; j < COUNT; j++) {
+                const dx = pa[i*3] - pa[j*3];
+                const dy = pa[i*3+1] - pa[j*3+1];
+                const dz = pa[i*3+2] - pa[j*3+2];
+                if (dx*dx + dy*dy + dz*dz < CONNECT_DIST * CONNECT_DIST) {
+                    if (li + 6 > la.length) break;
+                    la[li++] = pa[i*3];   la[li++] = pa[i*3+1]; la[li++] = pa[i*3+2];
+                    la[li++] = pa[j*3];   la[li++] = pa[j*3+1]; la[li++] = pa[j*3+2];
+                }
+            }
+        }
+        for (let k = li; k < Math.min(li + 6, la.length); k++) la[k] = 0;
+        apmLines.geometry.attributes.position.needsUpdate = true;
+        apmLines.geometry.setDrawRange(0, li / 3);
+
+        apmRenderer.render(apmScene, apmCam);
+    }
+    tick();
+
+    /* Resize observer keeps canvas in sync with the hero container */
+    const ro = new ResizeObserver(() => {
+        const cw = canvas.parentElement.offsetWidth;
+        const ch = canvas.parentElement.offsetHeight;
+        apmRenderer.setSize(cw, ch);
+        apmCam.aspect = cw / ch;
+        apmCam.updateProjectionMatrix();
+    });
+    ro.observe(canvas.parentElement);
+    canvas._apmRO = ro;
+}
+
+function disposeApmScene() {
+    if (apmAnimId) { cancelAnimationFrame(apmAnimId); apmAnimId = null; }
+    const canvas = document.getElementById('apm-canvas');
+    if (canvas && canvas._apmRO) { canvas._apmRO.disconnect(); canvas._apmRO = null; }
+    if (apmPts)  { apmPts.geometry.dispose();  apmPts.material.dispose();  apmPts  = null; }
+    if (apmLines){ apmLines.geometry.dispose(); apmLines.material.dispose(); apmLines = null; }
+    if (apmRenderer) { apmRenderer.dispose(); apmRenderer = null; }
+    apmScene = null; apmCam = null; apmVelocities = [];
+}
+
+function openAllProjects() {
+    const modal = document.getElementById('all-projects-modal');
+    modal.removeAttribute('hidden');
+    document.body.style.overflow = 'hidden';
+    requestAnimationFrame(() => modal.classList.add('apm-open'));
+    setTimeout(initApmScene, 280);
+}
+
+function closeAllProjects() {
+    const modal = document.getElementById('all-projects-modal');
+    modal.classList.remove('apm-open');
+    document.body.style.overflow = '';
+    disposeApmScene();
+    setTimeout(() => modal.setAttribute('hidden', ''), 480);
+}
+
+document.getElementById('all-projects-btn').addEventListener('click', openAllProjects);
+document.getElementById('apm-close').addEventListener('click', closeAllProjects);
+document.getElementById('apm-close-bottom').addEventListener('click', closeAllProjects);
+document.getElementById('apm-backdrop').addEventListener('click', closeAllProjects);
+
+document.addEventListener('keydown', e => {
+    if (e.key === 'Escape' && !document.getElementById('all-projects-modal').hasAttribute('hidden')) {
+        closeAllProjects();
+    }
+});
+
+/* Re-tint constellation when theme toggles while modal is open */
+toggle.addEventListener('click', () => {
+    if (document.getElementById('all-projects-modal').hasAttribute('hidden')) return;
+    disposeApmScene();
+    setTimeout(initApmScene, 60);
+});
+
+/* Cursor hover state on modal elements */
+document.querySelectorAll('.apm-work-card,.apm-pc,.apm-close,.apm-close-btn,.view-all-btn').forEach(el => {
+    el.addEventListener('mouseenter', () => document.body.classList.add('ch'));
+    el.addEventListener('mouseleave', () => document.body.classList.remove('ch'));
+});
+

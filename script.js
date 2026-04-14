@@ -391,27 +391,28 @@ function closeAllProjects() {
     setTimeout(() => modal.setAttribute('hidden', ''), 480);
 }
 
-document.getElementById('all-projects-btn').addEventListener('click', openAllProjects);
-document.getElementById('apm-close').addEventListener('click', closeAllProjects);
-document.getElementById('apm-close-bottom').addEventListener('click', closeAllProjects);
-document.getElementById('apm-backdrop').addEventListener('click', closeAllProjects);
+document.addEventListener('DOMContentLoaded', () => {
+    document.getElementById('all-projects-btn').addEventListener('click', openAllProjects);
+    document.getElementById('apm-close').addEventListener('click', closeAllProjects);
+    document.getElementById('apm-backdrop').addEventListener('click', closeAllProjects);
 
-document.addEventListener('keydown', e => {
-    if (e.key === 'Escape' && !document.getElementById('all-projects-modal').hasAttribute('hidden')) {
-        closeAllProjects();
-    }
-});
+    document.addEventListener('keydown', e => {
+        if (e.key === 'Escape' && !document.getElementById('all-projects-modal').hasAttribute('hidden')) {
+            closeAllProjects();
+        }
+    });
 
-/* Re-tint constellation when theme toggles while modal is open */
-toggle.addEventListener('click', () => {
-    if (document.getElementById('all-projects-modal').hasAttribute('hidden')) return;
-    disposeApmScene();
-    setTimeout(initApmScene, 60);
-});
+    /* Re-tint constellation when theme toggles while modal is open */
+    toggle.addEventListener('click', () => {
+        if (document.getElementById('all-projects-modal').hasAttribute('hidden')) return;
+        disposeApmScene();
+        setTimeout(initApmScene, 60);
+    });
 
-/* Cursor hover state on modal elements */
-document.querySelectorAll('.apm-work-card,.apm-pc,.apm-close,.apm-close-btn,.view-all-btn').forEach(el => {
-    el.addEventListener('mouseenter', () => document.body.classList.add('ch'));
-    el.addEventListener('mouseleave', () => document.body.classList.remove('ch'));
+    /* Cursor hover state on modal elements */
+    document.querySelectorAll('.apm-work-card,.apm-pc,.apm-close,.view-all-btn').forEach(el => {
+        el.addEventListener('mouseenter', () => document.body.classList.add('ch'));
+        el.addEventListener('mouseleave', () => document.body.classList.remove('ch'));
+    });
 });
 

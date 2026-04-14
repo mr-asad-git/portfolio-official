@@ -259,10 +259,23 @@
         <!-- ===== PROJECTS HEADER ===== -->
         <section id="projects-intro">
             <div class="ctr" style="padding:0rem 2rem 3rem">
-                <div class="rv">
-                    <span class="s-tag">// featured work</span>
-                    <h2 class="s-title">Selected <span class="grd">Projects</span></h2>
-                    <span class="s-line"></span>
+                <div class="pj-header-row">
+                    <div class="rv">
+                        <span class="s-tag">// featured work</span>
+                        <h2 class="s-title">Selected <span class="grd">Projects</span></h2>
+                        <span class="s-line"></span>
+                    </div>
+                    <button id="all-projects-btn" class="view-all-btn rv" aria-label="View all projects">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2.2">
+                            <rect x="3" y="3" width="7" height="7" rx="1" />
+                            <rect x="14" y="3" width="7" height="7" rx="1" />
+                            <rect x="3" y="14" width="7" height="7" rx="1" />
+                            <rect x="14" y="14" width="7" height="7" rx="1" />
+                        </svg>
+                        <span class="vab-full">View All Projects</span>
+                        <span class="vab-short">View All</span>
+                    </button>
                 </div>
             </div>
         </section>
@@ -387,24 +400,6 @@
                         </div>
                     </div>
                 </div>
-            </div>
-        </section>
-
-        <!-- ===== VIEW ALL PROJECTS CTA ===== -->
-        <section style="padding:1rem 0 7rem;text-align:center;">
-            <div class="ctr rv">
-                <p class="vab-note">Explore the full spectrum of my work — professional builds &amp; personal
-                    experiments.</p>
-                <button id="all-projects-btn" class="view-all-btn" aria-label="View all projects">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                        stroke-width="2.2">
-                        <rect x="3" y="3" width="7" height="7" rx="1" />
-                        <rect x="14" y="3" width="7" height="7" rx="1" />
-                        <rect x="3" y="14" width="7" height="7" rx="1" />
-                        <rect x="14" y="14" width="7" height="7" rx="1" />
-                    </svg>
-                    <span>View All Projects</span>
-                </button>
             </div>
         </section>
 
@@ -746,22 +741,26 @@
         <div class="apm-backdrop" id="apm-backdrop"></div>
         <div class="apm-panel">
 
-            <!-- Close Button -->
-            <button class="apm-close" id="apm-close" aria-label="Close all projects">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
-                    stroke-linecap="round">
-                    <line x1="18" y1="6" x2="6" y2="18" />
-                    <line x1="6" y1="6" x2="18" y2="18" />
-                </svg>
-            </button>
+            <!-- Sticky zero-height bar — close button floats over the hero on all screen sizes -->
+            <div class="apm-close-bar">
+                <button class="apm-close" id="apm-close" aria-label="Close all projects">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                        stroke-linecap="round">
+                        <line x1="18" y1="6" x2="6" y2="18" />
+                        <line x1="6" y1="6" x2="18" y2="18" />
+                    </svg>
+                </button>
+            </div>
 
             <!-- ===== WORK HERO (Three.js canvas lives here) ===== -->
             <div class="apm-work-hero">
                 <canvas id="apm-canvas"></canvas>
+
                 <div class="apm-work-hero-content">
                     <span class="apm-cat-tag">// professional work</span>
                     <h2 class="apm-company-name">VisionBird <span class="grd">Technologies</span></h2>
-                    <p class="apm-company-sub">Software House &nbsp;&middot;&nbsp; Internship &amp; Production Work</p>
+                    <p class="apm-company-sub">Software House &nbsp;&middot;&nbsp; 6-month Internship &amp; Production
+                        Work</p>
                     <p class="apm-company-desc">Production-grade software across CMS, healthcare &amp; e-commerce —
                         shipping real features for real users.</p>
                     <div class="apm-hero-badges">
@@ -792,7 +791,8 @@
                     </ul>
                     <div class="apm-wc-stack">
                         <span class="apm-tag">React</span><span class="apm-tag">REST API</span><span
-                            class="apm-tag">Node.js</span>
+                            class="apm-tag">Node.js</span><span class="apm-tag">MongoDB</span><span
+                            class="apm-tag">MUI</span>
                     </div>
                 </div>
 
@@ -936,11 +936,6 @@
                 </div>
 
             </div><!-- /apm-personal-grid -->
-
-            <!-- Modal Footer -->
-            <div class="apm-modal-footer">
-                <button class="apm-close-btn" id="apm-close-bottom">Close Panel &times;</button>
-            </div>
 
         </div><!-- /apm-panel -->
     </div><!-- /apm-overlay -->

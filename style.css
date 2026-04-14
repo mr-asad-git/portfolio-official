@@ -909,7 +909,7 @@ section {
 }
 
 .ab-fc:nth-of-type(1) {
-    top: -1rem;
+    top: -3rem;
     right: -2rem;
     animation: fc-fl 4s ease-in-out infinite;
 }
@@ -1416,9 +1416,51 @@ section {
     }
 }
 
-@media (max-width:480px) {
+@media (max-width: 540px) {
     .sk-cats {
         grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+
+    .sk-cat {
+        padding: 1.2rem 1.1rem;
+        border-radius: 16px;
+    }
+
+    .sk-cat-h {
+        font-size: .82rem;
+        margin-bottom: 1rem;
+        padding-bottom: .65rem;
+    }
+
+    .sk-list {
+        gap: .85rem;
+    }
+
+    .sk-it {
+        flex-wrap: wrap;
+        gap: .3rem .6rem;
+    }
+
+    .sk-ico {
+        width: 32px;
+        height: 32px;
+        border-radius: 8px;
+        font-size: .65rem;
+        flex-shrink: 0;
+    }
+
+    .sk-nm {
+        font-size: .85rem;
+        flex: 1;
+        min-width: 0;
+    }
+
+    .sk-bw {
+        width: 100%;
+        flex-basis: 100%;
+        height: 4px;
+        margin-left: 0;
     }
 }
 
@@ -2757,14 +2799,39 @@ section {
 
 .ab-fc:nth-of-type(1) {
     top: -1.5rem;
-    right: -7.5rem;
+    right: -9.5rem;
     animation: fc-fl 4s ease-in-out infinite;
 }
 
 .ab-fc:nth-of-type(2) {
     bottom: 1.5rem;
-    left: -7.5rem;
+    left: -9.5rem;
     animation: fc-fl 4s ease-in-out infinite 2s;
+}
+
+/* Mobile: reposition cards to image corners, reduce size */
+@media (max-width: 600px) {
+    .ab-img-wrap {
+        padding: 2rem 0;
+    }
+
+    .ab-fc {
+        padding: .5rem .8rem;
+        font-size: .74rem;
+        gap: .4rem;
+        border-radius: 10px;
+        box-shadow: 0 4px 16px rgba(0, 0, 0, .18);
+    }
+
+    .ab-fc:nth-of-type(1) {
+        top: -2rem;
+        right: -5.5rem;
+    }
+
+    .ab-fc:nth-of-type(2) {
+        bottom: -1.25rem;
+        left: -5.5rem;
+    }
 }
 
 @keyframes fc-fl {
@@ -3263,9 +3330,51 @@ section {
     }
 }
 
-@media (max-width:480px) {
+@media (max-width: 540px) {
     .sk-cats {
         grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+
+    .sk-cat {
+        padding: 1.2rem 1.1rem;
+        border-radius: 16px;
+    }
+
+    .sk-cat-h {
+        font-size: .82rem;
+        margin-bottom: 1rem;
+        padding-bottom: .65rem;
+    }
+
+    .sk-list {
+        gap: .85rem;
+    }
+
+    .sk-it {
+        flex-wrap: wrap;
+        gap: .3rem .6rem;
+    }
+
+    .sk-ico {
+        width: 32px;
+        height: 32px;
+        border-radius: 8px;
+        font-size: .65rem;
+        flex-shrink: 0;
+    }
+
+    .sk-nm {
+        font-size: .85rem;
+        flex: 1;
+        min-width: 0;
+    }
+
+    .sk-bw {
+        width: 100%;
+        flex-basis: 100%;
+        height: 4px;
+        margin-left: 0;
     }
 }
 

@@ -185,7 +185,7 @@ let _scrollRAF = null;
 function smoothScrollTo(targetY, baseDuration) {
     if (_scrollRAF) cancelAnimationFrame(_scrollRAF);
 
-    const startY  = window.scrollY;
+    const startY = window.scrollY;
     const distance = targetY - startY;
 
     // Scale duration with distance — feels natural for both small + large jumps
@@ -193,7 +193,7 @@ function smoothScrollTo(targetY, baseDuration) {
     const startTime = performance.now();
 
     function tick(now) {
-        const elapsed  = now - startTime;
+        const elapsed = now - startTime;
         const progress = Math.min(elapsed / duration, 1);
         window.scrollTo(0, startY + distance * easeInOutQuart(progress));
         if (progress < 1) {
@@ -218,7 +218,7 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         if (target) {
             e.preventDefault();
             const navHeight = document.getElementById('nav').offsetHeight;
-            const offset = Math.max(0, target.getBoundingClientRect().top + window.scrollY - navHeight - 24);
+            const offset = Math.max(0, target.getBoundingClientRect().top + window.scrollY - navHeight + 76);
             smoothScrollTo(offset);
         }
     });
@@ -227,7 +227,7 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 /* =============================================
    SCROLL TO TOP BUTTON
 ============================================= */
-const sttBtn      = document.getElementById('scroll-top');
+const sttBtn = document.getElementById('scroll-top');
 const STT_THRESHOLD = 400;
 
 window.addEventListener('scroll', () => {
@@ -268,7 +268,7 @@ function initApmScene() {
     const spread = { x: Math.max(8, W / 80), y: Math.max(4, H / 80) };
 
     for (let i = 0; i < COUNT; i++) {
-        pos[i * 3]     = (Math.random() - 0.5) * spread.x;
+        pos[i * 3] = (Math.random() - 0.5) * spread.x;
         pos[i * 3 + 1] = (Math.random() - 0.5) * spread.y;
         pos[i * 3 + 2] = (Math.random() - 0.5) * 2;
         apmVelocities.push(
@@ -322,9 +322,9 @@ function initApmScene() {
 
         /* Move & bounce particles */
         for (let i = 0; i < COUNT; i++) {
-            pa[i * 3]     += apmVelocities[i * 3];
+            pa[i * 3] += apmVelocities[i * 3];
             pa[i * 3 + 1] += apmVelocities[i * 3 + 1];
-            if (Math.abs(pa[i * 3])     > halfX) apmVelocities[i * 3]     *= -1;
+            if (Math.abs(pa[i * 3]) > halfX) apmVelocities[i * 3] *= -1;
             if (Math.abs(pa[i * 3 + 1]) > halfY) apmVelocities[i * 3 + 1] *= -1;
         }
         apmPts.geometry.attributes.position.needsUpdate = true;
@@ -335,13 +335,13 @@ function initApmScene() {
 
         for (let i = 0; i < COUNT; i++) {
             for (let j = i + 1; j < COUNT; j++) {
-                const dx = pa[i*3] - pa[j*3];
-                const dy = pa[i*3+1] - pa[j*3+1];
-                const dz = pa[i*3+2] - pa[j*3+2];
-                if (dx*dx + dy*dy + dz*dz < CONNECT_DIST * CONNECT_DIST) {
+                const dx = pa[i * 3] - pa[j * 3];
+                const dy = pa[i * 3 + 1] - pa[j * 3 + 1];
+                const dz = pa[i * 3 + 2] - pa[j * 3 + 2];
+                if (dx * dx + dy * dy + dz * dz < CONNECT_DIST * CONNECT_DIST) {
                     if (li + 6 > la.length) break;
-                    la[li++] = pa[i*3];   la[li++] = pa[i*3+1]; la[li++] = pa[i*3+2];
-                    la[li++] = pa[j*3];   la[li++] = pa[j*3+1]; la[li++] = pa[j*3+2];
+                    la[li++] = pa[i * 3]; la[li++] = pa[i * 3 + 1]; la[li++] = pa[i * 3 + 2];
+                    la[li++] = pa[j * 3]; la[li++] = pa[j * 3 + 1]; la[li++] = pa[j * 3 + 2];
                 }
             }
         }
@@ -369,8 +369,8 @@ function disposeApmScene() {
     if (apmAnimId) { cancelAnimationFrame(apmAnimId); apmAnimId = null; }
     const canvas = document.getElementById('apm-canvas');
     if (canvas && canvas._apmRO) { canvas._apmRO.disconnect(); canvas._apmRO = null; }
-    if (apmPts)  { apmPts.geometry.dispose();  apmPts.material.dispose();  apmPts  = null; }
-    if (apmLines){ apmLines.geometry.dispose(); apmLines.material.dispose(); apmLines = null; }
+    if (apmPts) { apmPts.geometry.dispose(); apmPts.material.dispose(); apmPts = null; }
+    if (apmLines) { apmLines.geometry.dispose(); apmLines.material.dispose(); apmLines = null; }
     if (apmRenderer) { apmRenderer.dispose(); apmRenderer = null; }
     apmScene = null; apmCam = null; apmVelocities = [];
 }
